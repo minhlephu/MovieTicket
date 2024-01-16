@@ -1,4 +1,6 @@
-﻿using Movie.INFARSTRUTURE;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Movie.INFARSTRUTURE;
 using Movie.INFARSTRUTURE.Entities;
 using Movie.SERVICES.Interfaces;
 using Movie.SERVICES.Models.UserModel;
@@ -12,9 +14,10 @@ namespace Movie.SERVICES.Repositories
 {
     public class UserRepository :GenericRipository<User>, IUserRepository
     {
-        public UserRepository(ApplicationDbContext context):base(context) {
-        
-        
+        private readonly IMapper _mapper;
+        public UserRepository(ApplicationDbContext context , IMapper mapper) :base(context) {
+
+            _mapper = mapper;
         }
 
         public Task<bool> CheckEmailSignUp(string email)
@@ -32,9 +35,10 @@ namespace Movie.SERVICES.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<LoginResultVm> GetById(Guid id)
+        public async Task<LoginResultVm> GetById(Guid id)
         {
-            throw new NotImplementedException();
+            var res = await _context.Users.FirstOrDefaultAsync(x=>x.user_id==id);
+            return _mapper.Map<LoginResultVm>(res);
         }
 
         public Task<LoginResultVm> GetByUsername(string username)

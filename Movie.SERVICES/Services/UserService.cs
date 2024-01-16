@@ -28,14 +28,14 @@ namespace Movie.SERVICES.Services
             return await _unitOfWork.Users.GetById(id);
         }
 
-        public Task<LoginResultVm> Login(LoginViewModel request)
+        public async Task<LoginResultVm> Login(LoginViewModel request)
         {
-            var user = _context.Users.SingleOrDefault(x=>x.email == request.Email);
+            var user =  _context.Users.SingleOrDefault(x => x.email == request.Email);
             if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.password))
             {
                 throw new Exception("Username or password is incorrect");
             }
-          
+            return   _mapper.Map<LoginResultVm>(user);
         }
     }
 }
