@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Movie.INFARSTRUTURE;
 using Movie.SERVICES.Interfaces;
+using Movie.SERVICES.Mappers;
 using Movie.SERVICES.Repositories;
 using System;
 using System.Collections.Generic;
@@ -22,8 +23,7 @@ namespace Movie.SERVICES.ServiceExtension
             });
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
-
-
+            services.AddAutoMapper(typeof(UserMapper).Assembly);
             return services;
         }
     }

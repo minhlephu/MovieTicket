@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Movie.SERVICES.Interfaces
 {
-    internal interface IUnitOfWork:IDisposable
+    public interface IUnitOfWork:IDisposable
     {
         IUserRepository Users { get; set; }
         int Save();

@@ -1,4 +1,5 @@
 ﻿using Movie.INFARSTRUTURE.Entities;
+using Movie.SERVICES.Models.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,9 @@ namespace Movie.SERVICES.Interfaces
 {
     public interface IUserRepository : IGenericRepository<User>
     {
-        Task<User> GetByUsername(string username);
+        Task<LoginResultVm> GetById(Guid id);
+        Task<User> Delete(Guid id);
+        Task<LoginResultVm> GetByUsername(string username);
 
         Task<bool> CheckUserNameSignUp(string username);
 
