@@ -1,6 +1,7 @@
 ﻿using Movie.INFARSTRUTURE;
 using Movie.INFARSTRUTURE.Entities;
 using Movie.SERVICES.Interfaces;
+using Movie.SERVICES.Models.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,9 +27,20 @@ namespace Movie.SERVICES.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<User> GetByUsername(string username)
+        public Task<User> Delete(Guid id)
         {
             throw new NotImplementedException();
         }
+
+        public Task<LoginResultVm> GetById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<LoginResultVm> GetByUsername(string username)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

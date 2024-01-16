@@ -11,6 +11,6 @@ namespace Movie.SERVICES.Interfaces
     public interface IUserService
     {
         Task<LoginResultVm> Login(LoginViewModel request);
-        Task<LoginResultVm> GetUserToContext(int id);
+        Task<LoginResultVm> GetUserToContext(Guid id);
     }
 }
