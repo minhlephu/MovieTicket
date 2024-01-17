@@ -14,7 +14,7 @@ namespace MovieApi.Middlewares
             if (userId != null)
             {
                 // attach user to context on successful jwt validation
-                context.Items["User"] = userService.GetUserToContext(userId.Value).Result;
+                //context.Items["User"] = userService.GetUserToContext(userId.Value).Result;
             }
 
             await _next(context);

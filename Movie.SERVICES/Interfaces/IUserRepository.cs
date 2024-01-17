@@ -10,12 +10,11 @@ namespace Movie.SERVICES.Interfaces
 {
     public interface IUserRepository : IGenericRepository<User>
     {
-        Task<LoginResultVm> GetById(Guid id);
+        Task<LoginResultVm> GetByIdUser(Guid id);
         Task<User> Delete(Guid id);
-        Task<LoginResultVm> GetByUsername(string username);
-
         Task<bool> CheckUserNameSignUp(string username);
 
         Task<bool> CheckEmailSignUp(string email);
+       
     }
 }

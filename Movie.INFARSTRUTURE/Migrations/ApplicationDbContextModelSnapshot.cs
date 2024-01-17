@@ -24,9 +24,11 @@ namespace Movie.INFARSTRUTURE.Migrations
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Booking", b =>
                 {
-                    b.Property<Guid>("bk_id")
+                    b.Property<int>("bk_id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("bk_id"), 1L, 1);
 
                     b.Property<int>("fare_id")
                         .HasColumnType("int");
@@ -40,8 +42,8 @@ namespace Movie.INFARSTRUTURE.Migrations
                     b.Property<int>("seat_id")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("show_id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("show_id")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("user_id")
                         .HasColumnType("uniqueidentifier");
@@ -148,9 +150,11 @@ namespace Movie.INFARSTRUTURE.Migrations
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Movie", b =>
                 {
-                    b.Property<Guid>("mv_id")
+                    b.Property<int>("mv_id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("mv_id"), 1L, 1);
 
                     b.Property<int>("duration")
                         .HasColumnType("int");
@@ -263,15 +267,17 @@ namespace Movie.INFARSTRUTURE.Migrations
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Show", b =>
                 {
-                    b.Property<Guid>("show_id")
+                    b.Property<int>("show_id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("show_id"), 1L, 1);
 
                     b.Property<DateTime>("end_time")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("mv_id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("mv_id")
+                        .HasColumnType("int");
 
                     b.Property<int>("mv_type_id")
                         .HasColumnType("int");
@@ -325,7 +331,6 @@ namespace Movie.INFARSTRUTURE.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("email")
@@ -341,7 +346,6 @@ namespace Movie.INFARSTRUTURE.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("phone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("regis_date")

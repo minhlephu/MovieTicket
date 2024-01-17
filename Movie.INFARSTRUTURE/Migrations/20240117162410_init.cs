@@ -5,28 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Movie.INFARSTRUTURE.Migrations
 {
-    public partial class migrationdbv1 : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "mv_name",
-                table: "Movies",
-                type: "nvarchar(250)",
-                maxLength: 250,
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "genre_name",
-                table: "genre",
-                type: "nvarchar(250)",
-                maxLength: 250,
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
-
             migrationBuilder.CreateTable(
                 name: "Cities",
                 columns: table => new
@@ -52,6 +34,19 @@ namespace Movie.INFARSTRUTURE.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Fare", x => x.fare_id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "genre",
+                columns: table => new
+                {
+                    genre_id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    genre_name = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_genre", x => x.genre_id);
                 });
 
             migrationBuilder.CreateTable(
@@ -119,15 +114,36 @@ namespace Movie.INFARSTRUTURE.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Movies",
+                columns: table => new
+                {
+                    mv_id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    mv_name = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    release_date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    duration = table.Column<int>(type: "int", nullable: false),
+                    genre_id = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Movies", x => x.mv_id);
+                    table.ForeignKey(
+                        name: "FK_Movies_genre_genre_id",
+                        column: x => x.genre_id,
+                        principalTable: "genre",
+                        principalColumn: "genre_id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
                     user_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     user_name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     gender = table.Column<int>(type: "int", nullable: false),
                     regis_date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     role_id = table.Column<int>(type: "int", nullable: false)
@@ -196,11 +212,12 @@ namespace Movie.INFARSTRUTURE.Migrations
                 name: "Shows",
                 columns: table => new
                 {
-                    show_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    show_id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     start_time = table.Column<DateTime>(type: "datetime2", nullable: false),
                     end_time = table.Column<DateTime>(type: "datetime2", nullable: false),
                     show_date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    mv_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    mv_id = table.Column<int>(type: "int", nullable: false),
                     mv_type_id = table.Column<int>(type: "int", nullable: false),
                     theater_id = table.Column<int>(type: "int", nullable: false)
                 },
@@ -231,10 +248,11 @@ namespace Movie.INFARSTRUTURE.Migrations
                 name: "Booking",
                 columns: table => new
                 {
-                    bk_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    bk_id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     sale_date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     price = table.Column<int>(type: "int", nullable: false),
-                    show_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    show_id = table.Column<int>(type: "int", nullable: false),
                     seat_id = table.Column<int>(type: "int", nullable: false),
                     fare_id = table.Column<int>(type: "int", nullable: false),
                     user_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
@@ -283,6 +301,11 @@ namespace Movie.INFARSTRUTURE.Migrations
                 column: "city_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Movies_genre_id",
+                table: "Movies",
+                column: "genre_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Seats_seat_type_id",
                 table: "Seats",
                 column: "seat_type_id");
@@ -329,6 +352,9 @@ namespace Movie.INFARSTRUTURE.Migrations
                 name: "Movie_type");
 
             migrationBuilder.DropTable(
+                name: "Movies");
+
+            migrationBuilder.DropTable(
                 name: "Seat_type");
 
             migrationBuilder.DropTable(
@@ -338,28 +364,13 @@ namespace Movie.INFARSTRUTURE.Migrations
                 name: "Roles");
 
             migrationBuilder.DropTable(
+                name: "genre");
+
+            migrationBuilder.DropTable(
                 name: "Cinemas");
 
             migrationBuilder.DropTable(
                 name: "Cities");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "mv_name",
-                table: "Movies",
-                type: "nvarchar(max)",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(250)",
-                oldMaxLength: 250);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "genre_name",
-                table: "genre",
-                type: "nvarchar(max)",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(250)",
-                oldMaxLength: 250);
         }
     }
 }

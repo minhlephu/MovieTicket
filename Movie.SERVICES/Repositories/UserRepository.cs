@@ -35,7 +35,7 @@ namespace Movie.SERVICES.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<LoginResultVm> GetById(Guid id)
+        public async Task<LoginResultVm> GetByIdUser(Guid id)
         {
             var res = await _context.Users.FirstOrDefaultAsync(x=>x.user_id==id);
             return _mapper.Map<LoginResultVm>(res);
