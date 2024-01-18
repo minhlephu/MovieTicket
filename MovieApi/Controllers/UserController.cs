@@ -16,7 +16,7 @@ namespace MovieApi.Controllers
             _userService = userService;
             _jwtUtils = jwtUtils;
         }
-        [Route("signIn")]
+        [Route("SignIn")]
         [HttpPost]
         public async Task<IActionResult> SignIn(LoginViewModel request)
         {
@@ -24,5 +24,13 @@ namespace MovieApi.Controllers
             var jwtToken = _jwtUtils.GenerateJwtToken(response);
             return Ok(new { token = jwtToken, response });
         }
+        [Route("SignUp")]
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel request)
+        {
+            var response = await _userService.Register(request);
+            return Ok(response);
+        }
     }
 }
+ 

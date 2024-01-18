@@ -15,6 +15,7 @@ namespace Movie.SERVICES.Mappers
         {
             CreateMap<User, LoginViewModel>().ReverseMap();
             CreateMap<User, LoginResultVm>().ReverseMap();
+            CreateMap<User, RegisterViewModel>().ReverseMap();
         }
     }
 }

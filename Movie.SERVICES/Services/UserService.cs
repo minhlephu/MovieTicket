@@ -51,7 +51,7 @@ namespace Movie.SERVICES.Services
 
         public async Task<bool> Register(RegisterViewModel register)
         {
-            if(await _unitOfWork.Users.CheckEmailSignUp(register.email))
+            if (await _unitOfWork.Users.CheckEmailSignUp(register.email))
             {
                 throw new Exception("Email or UserName already exist");
             }
@@ -65,6 +65,7 @@ namespace Movie.SERVICES.Services
                 user.role_id = 1;
                 user.gender = register.gender;
                 user.address = register.address;
+                user.regis_date = DateTime.UtcNow;
                 await _unitOfWork.Users.Add(user);
                 var result = _unitOfWork.Save();
                 if (result > 0)
@@ -76,9 +77,5 @@ namespace Movie.SERVICES.Services
             return false;
         }
 
-        public Task<LoginResultVm> GetByIdUser(Guid id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

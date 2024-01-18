@@ -13,10 +13,10 @@ namespace Movie.SERVICES.Repositories
     {
         private readonly ApplicationDbContext _context;
         public IUserRepository Users { get; set; }
-        public UnitOfWork(ApplicationDbContext context)
+        public UnitOfWork(ApplicationDbContext context,IUserRepository userRepositories)
         { 
              _context=context;
-        
+            Users= userRepositories;
         }
         public void Dispose()
         {

@@ -11,7 +11,6 @@ namespace Movie.SERVICES.Interfaces
     public interface IUserService
     {
         Task<LoginResultVm> Login(LoginViewModel request);
-        Task<LoginResultVm> GetByIdUser(Guid id);
         Task<User> Delete(Guid id);
         Task<LoginResultVm> GetUserToContext(Guid id);
         Task<bool> CheckEmailSignUp(string email);

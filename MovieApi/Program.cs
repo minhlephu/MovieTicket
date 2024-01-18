@@ -6,6 +6,7 @@ using Movie.SERVICES.ServiceExtension;
 using Movie.SERVICES.Services;
 using MovieApi.Configurations;
 using MovieApi.Interfaces;
+using MovieApi.Middlewares;
 
 namespace MovieApi
 {
@@ -17,6 +18,7 @@ namespace MovieApi
 
             // Add services to the container.
             builder.Services.AddAuthorization();
+            builder.Services.AddControllers();
             builder.Services.AddDIServices(builder.Configuration);
             builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
             builder.Services.AddScoped<IJwtUtils, JwtUtils>();
@@ -24,6 +26,7 @@ namespace MovieApi
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+          
             builder.Services.AddDbContext<ApplicationDbContext>(option =>
             {
                 option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -36,17 +39,11 @@ namespace MovieApi
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseMiddleware<JwtMiddleware>();
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
-            var summaries = new[]
-            {
-                "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-            };
-
-            
+            app.MapControllers();
 
             app.Run();
         }

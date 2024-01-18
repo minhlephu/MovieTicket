@@ -20,9 +20,9 @@ namespace Movie.SERVICES.Repositories
             _mapper = mapper;
         }
 
-        public Task<bool> CheckEmailSignUp(string email)
+        public async Task<bool> CheckEmailSignUp(string email)
         {
-            throw new NotImplementedException();
+            return await _context.Users.AnyAsync(u => u.email == email);
         }
 
         public Task<bool> CheckUserNameSignUp(string username)
