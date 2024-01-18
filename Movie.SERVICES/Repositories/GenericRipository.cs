@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Movie.INFARSTRUTURE;
-using Movie.SERVICES.Interfaces;
+using Movie.SERVICES.Interfaces.IRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

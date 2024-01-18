@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Movie.INFARSTRUTURE;
 using Movie.SERVICES.Interfaces;
+using Movie.SERVICES.Interfaces.IRepositories;
 using Movie.SERVICES.Mappers;
 using Movie.SERVICES.Repositories;
 using System;

@@ -1,4 +1,4 @@
-﻿using Movie.SERVICES.Interfaces;
+﻿using Movie.SERVICES.Interfaces.IServices;
 using MovieApi.Interfaces;
 
 namespace MovieApi.Middlewares

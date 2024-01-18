@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Movie.INFARSTRUTURE;
 using Movie.INFARSTRUTURE.Entities;
-using Movie.SERVICES.Interfaces;
+using Movie.SERVICES.Interfaces.IRepositories;
 using Movie.SERVICES.Models.UserModel;
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Movie.INFARSTRUTURE;
-using Movie.SERVICES.Interfaces;
+using Movie.SERVICES.Interfaces.IServices;
 using Movie.SERVICES.Repositories;
 using Movie.SERVICES.ServiceExtension;
 using Movie.SERVICES.Services;

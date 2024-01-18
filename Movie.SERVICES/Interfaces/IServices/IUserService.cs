@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Movie.INFARSTRUTURE.Entities;
 using Movie.SERVICES.Models.UserModel;
 
-namespace Movie.SERVICES.Interfaces
+namespace Movie.SERVICES.Interfaces.IServices
 {
     public interface IUserService
     {

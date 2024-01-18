@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Movie.SERVICES.Interfaces;
+using Movie.SERVICES.Interfaces.IServices;
 using Movie.SERVICES.Models.UserModel;
 using MovieApi.Interfaces;
 

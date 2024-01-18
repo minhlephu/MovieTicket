@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Movie.INFARSTRUTURE;
 using Movie.SERVICES.Interfaces;
+using Movie.SERVICES.Interfaces.IRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,12 @@ namespace Movie.SERVICES.Repositories
     {
         private readonly ApplicationDbContext _context;
         public IUserRepository Users { get; set; }
-        public UnitOfWork(ApplicationDbContext context,IUserRepository userRepositories)
-        { 
-             _context=context;
-            Users= userRepositories;
+        public IMovieRepository Movies { get; set; }
+
+        public UnitOfWork(ApplicationDbContext context, IUserRepository userRepositories)
+        {
+            _context = context;
+            Users = userRepositories;
         }
         public void Dispose()
         {
