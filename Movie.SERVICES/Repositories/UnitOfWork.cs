@@ -13,29 +13,11 @@ namespace Movie.SERVICES.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
-        public IUserRepository Users { get; set; }
-        public IMovieRepository Movies { get; set; }
-
-        public UnitOfWork(ApplicationDbContext context, IUserRepository userRepositories)
+        public UnitOfWork(ApplicationDbContext context)
         {
-            _context = context;
-            Users = userRepositories;
+            _context = context;          
         }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _context.Dispose();
-            }
-        }
-        public int Save()
-        {
-            return _context.SaveChanges();
-        }
+        public void Dispose() => _context.Dispose();
+        public Task<int> CommitAsync() => _context.SaveChangesAsync();
     }
 }

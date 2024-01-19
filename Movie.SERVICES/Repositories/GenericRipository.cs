@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Movie.INFARSTRUTURE;
+using Movie.SERVICES.Interfaces;
 using Movie.SERVICES.Interfaces.IRepositories;
 using System;
 using System.Collections.Generic;
@@ -12,13 +13,20 @@ namespace Movie.SERVICES.Repositories
     public class GenericRipository<T> : IGenericRepository<T> where T : class
     {
         protected readonly ApplicationDbContext _context;
-        protected GenericRipository(ApplicationDbContext context)
+        private readonly IUnitOfWork _unitOfWork;
+        protected GenericRipository(ApplicationDbContext context,IUnitOfWork unitOfWork)
         {
             _context = context;
+            _unitOfWork = unitOfWork;
         }
         public async Task Add(T entity)
         {
            await _context.Set<T>().AddAsync(entity);
+        }
+
+        public async Task CreateAsync(T entity)
+        {
+           await _context.Set<T>().AddAsync(entity);          
         }
 
         public async Task<T> Delete(int id)
@@ -29,15 +37,32 @@ namespace Movie.SERVICES.Repositories
             return isDelete.Entity;
         }
 
+        public Task DeleteAsync(T entity)
+        {
+            _context.Set<T>().Remove(entity);
+            return Task.CompletedTask;
+        }
+
         public async Task<IEnumerable<T>> GetAll()
         {
-            return await _context.Set<T>().ToListAsync();
+            var result = await _context.Set<T>().ToListAsync();
+            return result;
         }
 
         public async Task<T> GetById(int id)
         {
             var res = await _context.Set<T>().FindAsync(id);
             return res;
+        }
+
+        public Task<T> GetByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> SaveChangesAsync()
+        {
+            return _unitOfWork.CommitAsync();
         }
 
         public async Task<T> Update(T entity)
@@ -47,5 +72,15 @@ namespace Movie.SERVICES.Repositories
             return entityEntry.Entity;
         }
 
+        public Task UpdateAsync(T entity)
+        {
+            if (_context.Entry(entity).State == EntityState.Unchanged)
+            {
+                return Task.CompletedTask;
+            }
+            var entityEntry = _context.Set<T>().Update(entity);
+
+            return entityEntry;
+        }
     }
 }

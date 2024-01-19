@@ -8,10 +8,11 @@ namespace Movie.SERVICES.Interfaces.IRepositories
 {
     public interface IGenericRepository<T> where T : class
     {
-        Task<T> GetById(int id);
+        Task<T> GetByIdAsync(int id);
         Task<IEnumerable<T>> GetAll();
-        Task<T> Delete(int id);
-        Task Add(T entity);
-        Task<T> Update(T entity);
+        Task DeleteAsync(T entity);
+        Task CreateAsync(T entity);
+        Task UpdateAsync(T entity);
+        Task<int> SaveChangesAsync();
     }
 }

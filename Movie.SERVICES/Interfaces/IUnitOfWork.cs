@@ -8,9 +8,7 @@ using Movie.SERVICES.Interfaces.IRepositories;
 namespace Movie.SERVICES.Interfaces
 {
     public interface IUnitOfWork:IDisposable
-    {
-        IUserRepository Users { get; set; }
-        IMovieRepository Movies { get; set; }
-        int Save();
+    {    
+       Task<int> CommitAsync();
     }
 }

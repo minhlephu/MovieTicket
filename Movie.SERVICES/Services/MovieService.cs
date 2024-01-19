@@ -48,19 +48,20 @@ namespace Movie.SERVICES.Services
         }
 
         public async Task<bool> DeleteMovie(int id)
-        {
-            if (id != null)
+        {           
+            var isDelete = _unitOfWork.Movies.Delete(id);
+            if (isDelete != null)
             {
-                var isDelete = _unitOfWork.Movies.Delete(id);
                 return true;
+
             }
-            return false;
+           return false;
         }
 
         public async Task<IEnumerable<MovieViewModel>> GetAllMovie()
         {
             var listMovie = _unitOfWork.Movies.GetAll();
-            var reponses =  listMovie.Result.Select(c => _mapper.Map<MovieViewModel>(c));
+            var reponses = listMovie.Result.Select(c => _mapper.Map<MovieViewModel>(c));
             return reponses;
         }
          
