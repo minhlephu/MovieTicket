@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Movie.SERVICES.Models.MovieModel
+namespace Movie.INFARSTRUTURE.Models.MovieModel
 {
     public class MovieViewModel
     {

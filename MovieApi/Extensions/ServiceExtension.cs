@@ -1,18 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Movie.INFARSTRUTURE;
-using Movie.SERVICES.Interfaces;
 using Movie.SERVICES.Interfaces.IRepositories;
-using Movie.SERVICES.Mappers;
+using Movie.SERVICES.Interfaces;
 using Movie.SERVICES.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MovieApi.Extensions.Mappers;
 
-namespace Movie.SERVICES.ServiceExtension
+namespace MovieApi.Extensions
 {
     public static class ServiceExtension
     {

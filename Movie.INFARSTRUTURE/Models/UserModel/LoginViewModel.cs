@@ -1,4 +1,4 @@
-﻿namespace MovieApi.Models.UserModel
+﻿namespace Movie.INFARSTRUTURE.Models.UserModel
 {
     public class LoginViewModel
     {

@@ -12,7 +12,7 @@ namespace Movie.SERVICES.Interfaces.IRepositories
         Task<IEnumerable<T>> GetAll();
         Task DeleteAsync(T entity);
         Task CreateAsync(T entity);
-        Task UpdateAsync(T entity);
+        Task<T> UpdateAsync(T entity);
         Task<int> SaveChangesAsync();
     }
 }

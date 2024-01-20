@@ -2,9 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using Movie.INFARSTRUTURE;
 using Movie.SERVICES.Interfaces.IServices;
 using Movie.SERVICES.Repositories;
-using Movie.SERVICES.ServiceExtension;
 using Movie.SERVICES.Services;
 using MovieApi.Configurations;
+using MovieApi.Extensions;
 using MovieApi.Interfaces;
 using MovieApi.Middlewares;
 
@@ -22,7 +22,6 @@ namespace MovieApi
             builder.Services.AddDIServices(builder.Configuration);
             builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
             builder.Services.AddScoped<IJwtUtils, JwtUtils>();
-            builder.Services.AddScoped<IUserService, UserService>();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

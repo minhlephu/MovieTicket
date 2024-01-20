@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Movie.INFARSTRUTURE.Models.MovieModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Movie.SERVICES.Models.MovieModel;
 
 namespace Movie.SERVICES.Interfaces.IServices
 {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Movie.INFARSTRUTURE.Entities;
-using Movie.SERVICES.Models.UserModel;
+using Movie.INFARSTRUTURE.Models.UserModel;
 
 namespace Movie.SERVICES.Interfaces.IServices
 {

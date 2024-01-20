@@ -28,4 +28,9 @@
     <ProjectReference Include="..\Movie.INFARSTRUTURE\Movie.INFARSTRUTURE.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mappers\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

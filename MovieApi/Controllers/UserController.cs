@@ -1,36 +1,44 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Movie.SERVICES.Interfaces.IServices;
-using Movie.SERVICES.Models.UserModel;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Movie.INFARSTRUTURE.Models.UserModel;
+using Movie.SERVICES.Interfaces.IRepositories;
 using MovieApi.Interfaces;
 
 namespace MovieApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController:ControllerBase
+    public class UserController : ControllerBase
     {
-        private IUserService _userService;
+        private IUserRepository _userRepository;
         private IJwtUtils _jwtUtils;
-        public UserController(IUserService userService, IJwtUtils jwtUtils)
+        private IMapper _mapper;
+        public UserController(IJwtUtils jwtUtils, IUserRepository userRepository, IMapper mapper)
         {
-            _userService = userService;
+            _userRepository = userRepository;
             _jwtUtils = jwtUtils;
+            _mapper = mapper;
         }
         [Route("SignIn")]
         [HttpPost]
-        public async Task<IActionResult> SignIn(LoginViewModel request)
-        {
-            var response = await _userService.Login(request);
-            var jwtToken = _jwtUtils.GenerateJwtToken(response);
-            return Ok(new { token = jwtToken, response });
-        }
+
         [Route("SignUp")]
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel request)
+        public async Task<IActionResult> Register([FromBody] RegisterViewModel request)
         {
-            var response = await _userService.Register(request);
-            return Ok(response);
+            if (await _userRepository.CheckEmailSignUp(request.email) || await _userRepository.CheckUserNameSignUp(request.user_name))
+            {
+                throw new Exception("Email or UserName already exist");
+
+            }
+            var user = _mapper.Map<Movie.INFARSTRUTURE.Entities.User>(request);
+            user.user_id = Guid.NewGuid();
+            user.password = BCrypt.Net.BCrypt.HashPassword(user.password);
+            user.role_id = 1;
+            user.regis_date = DateTime.Now;
+            await _userRepository.CreateAsync(user);
+            var result = _userRepository.SaveChangesAsync();
+            return Ok(result);
         }
     }
 }
- 

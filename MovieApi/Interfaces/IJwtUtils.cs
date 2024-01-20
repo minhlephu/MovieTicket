@@ -1,4 +1,5 @@
-﻿using Movie.SERVICES.Models.UserModel;
+﻿
+using Movie.INFARSTRUTURE.Models.UserModel;
 
 namespace MovieApi.Interfaces
 {
