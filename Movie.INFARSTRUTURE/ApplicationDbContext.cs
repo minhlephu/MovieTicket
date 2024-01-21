@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Movie.INFARSTRUTURE.Configurations;
 using Movie.INFARSTRUTURE.Entities;
 using System;
@@ -9,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Movie.INFARSTRUTURE
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions options) : base(options) { }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public DbSet<Entities.Movie> Movies { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Show> Shows { get; set; }
