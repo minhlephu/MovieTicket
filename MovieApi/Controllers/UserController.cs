@@ -21,15 +21,24 @@ namespace MovieApi.Controllers
         }
         [Route("SignIn")]
         [HttpPost]
-
+        public async Task<IActionResult> Login([FromBody] LoginViewModel request)
+        {
+            var res = await _userRepository.SignIn(request);
+            var result = _mapper.Map<LoginResultVm>(res);
+            var jwtToken = _jwtUtils.GenerateJwtToken(result);
+            return Ok(new { token = jwtToken, result });
+        }
         [Route("SignUp")]
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] RegisterViewModel request)
         {
-            if (await _userRepository.CheckEmailSignUp(request.email) || await _userRepository.CheckUserNameSignUp(request.user_name))
+            if (await _userRepository.CheckEmailSignUp(request.email))
             {
-                throw new Exception("Email or UserName already exist");
-
+                throw new Exception("Email already exist");
+            }
+            if(await _userRepository.CheckUserNameSignUp(request.user_name))
+            {
+                throw new Exception("Username already exist");
             }
             var user = _mapper.Map<Movie.INFARSTRUTURE.Entities.User>(request);
             user.user_id = Guid.NewGuid();
@@ -37,8 +46,8 @@ namespace MovieApi.Controllers
             user.role_id = 1;
             user.regis_date = DateTime.Now;
             await _userRepository.CreateAsync(user);
-            var result = _userRepository.SaveChangesAsync();
-            return Ok(result);
+            await _userRepository.SaveChangesAsync();
+            return Ok();
         }
     }
 }

@@ -55,9 +55,13 @@ namespace Movie.SERVICES.Repositories
             return GetAll();
         }
 
-        public Task<User> SignIn(LoginViewModel login)
+        public async Task<User> SignIn(LoginViewModel login)
         {
-            throw new NotImplementedException();
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.user_name == login.UserName);
+            if (user == null || !BCrypt.Net.BCrypt.Verify(login.Password, user.password)){
+                throw new Exception("Username or password is incorrect");
+            }
+            return user;
         }
         public Task<User> GetUserToContext(Guid id)
         {
