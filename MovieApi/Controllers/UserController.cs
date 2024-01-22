@@ -32,21 +32,21 @@ namespace MovieApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] RegisterViewModel request)
         {
-            if (await _userRepository.CheckEmailSignUp(request.email))
-            {
-                throw new Exception("Email already exist");
-            }
-            if(await _userRepository.CheckUserNameSignUp(request.user_name))
-            {
-                throw new Exception("Username already exist");
-            }
-            var user = _mapper.Map<Movie.INFARSTRUTURE.Entities.User>(request);
-            user.user_id = Guid.NewGuid();
-            user.password = BCrypt.Net.BCrypt.HashPassword(user.password);
-            user.role_id = 1;
-            user.regis_date = DateTime.Now;
-            await _userRepository.CreateAsync(user);
-            await _userRepository.SaveChangesAsync();
+            //if (await _userRepository.CheckEmailSignUp(request.email))
+            //{
+            //    throw new Exception("Email already exist");
+            //}
+            //if(await _userRepository.CheckUserNameSignUp(request.user_name))
+            //{
+            //    throw new Exception("Username already exist");
+            //}
+            //var user = _mapper.Map<Movie.INFARSTRUTURE.Entities.User>(request);
+            //user.user_id = Guid.NewGuid();
+            //user.password = BCrypt.Net.BCrypt.HashPassword(user.password);
+            //user.role_id = 1;
+            //user.regis_date = DateTime.Now;
+            //await _userRepository.CreateAsync(user);
+            //await _userRepository.SaveChangesAsync();
             return Ok();
         }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Movie.INFARSTRUTURE.Configurations;
 using Movie.INFARSTRUTURE.Entities;
@@ -52,6 +53,7 @@ namespace Movie.INFARSTRUTURE
             modelBuilder.ApplyConfiguration(new ShowConfiguration());
             modelBuilder.ApplyConfiguration(new TheaterConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

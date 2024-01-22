@@ -1,4 +1,5 @@
-﻿using Movie.INFARSTRUTURE.Entities;
+﻿using Microsoft.AspNetCore.Identity;
+using Movie.INFARSTRUTURE.Entities;
 using Movie.INFARSTRUTURE.Models.UserModel;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace Movie.SERVICES.Interfaces.IRepositories
         Task CreateUser(User user);
         Task UpdateUser(User user);
         Task<IEnumerable<User>> GetUsers();
+        Task<string> SignInAsync(LoginViewModel login);
+        Task<IdentityResult> SignUpAsync(RegisterViewModel register);
 
     }
 }

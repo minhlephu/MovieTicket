@@ -10,7 +10,7 @@ namespace Movie.INFARSTRUTURE.Entities
     public class ApplicationUser : IdentityUser
     {
         [MaxLength(100)]
-        public string FullName { get; set; } = null!;
+        public string UserName { get; set; } = null!;
         [MaxLength(255)]
         public string Address { get; set; } = null!;
         [DataType(DataType.Date)]

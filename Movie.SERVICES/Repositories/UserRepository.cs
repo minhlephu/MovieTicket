@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Movie.INFARSTRUTURE;
 using Movie.INFARSTRUTURE.Entities;
@@ -16,7 +17,7 @@ namespace Movie.SERVICES.Repositories
     public class UserRepository :GenericRipository<User>, IUserRepository
     {
 
-        public UserRepository(ApplicationDbContext context,IUnitOfWork unitOfWork) :base(context,unitOfWork) {
+        public UserRepository(UserManager<ApplicationUser> userManager,IUnitOfWork unitOfWork) :base(userManager, unitOfWork) {
 
         }
 
@@ -68,5 +69,14 @@ namespace Movie.SERVICES.Repositories
             return GetByIdUser(id);
         }
 
+        public Task<string> SignInAsync(LoginViewModel login)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IdentityResult> SignUpAsync(RegisterViewModel register)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
