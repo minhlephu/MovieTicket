@@ -60,9 +60,9 @@ namespace MovieApi
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            app.UseMiddleware<JwtMiddleware>();
+            //app.UseMiddleware<JwtMiddleware>();
             app.UseHttpsRedirection();
-
+            app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
 

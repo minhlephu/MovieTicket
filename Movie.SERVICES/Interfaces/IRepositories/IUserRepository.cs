@@ -20,7 +20,7 @@ namespace Movie.SERVICES.Interfaces.IRepositories
         Task UpdateUser(User user);
         Task<IEnumerable<User>> GetUsers();
         Task<string> SignInAsync(LoginViewModel login);
-        Task<IdentityResult> SignUpAsync(RegisterViewModel register);
+        Task<IdentityResult> SignUpAsync(ApplicationUser register);
 
     }
 }
