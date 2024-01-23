@@ -9,11 +9,10 @@ namespace Movie.INFARSTRUTURE.Entities
 {
     public class ApplicationUser : IdentityUser
     {
-        [MaxLength(100)]
-        public string UserName { get; set; } = null!;
         [MaxLength(255)]
-        public string Address { get; set; } = null!;
+        public string? Address { get; set; }
         [DataType(DataType.Date)]
         public DateTime? Birthday { set; get; }
+        public List<Booking> booking { get; set; }
     }
 }

@@ -9,19 +9,11 @@ using Movie.INFARSTRUTURE.Entities;
 
 namespace Movie.INFARSTRUTURE.Configurations
 {
-    public class UserConfiguration : IEntityTypeConfiguration<User>
+    public class UserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
             builder.ToTable("Users");
-            builder.HasKey(e => e.user_id);
-            builder.Property(e => e.user_id).IsRequired();
-            builder.Property(e => e.user_name).IsRequired().HasMaxLength(100);
-            builder.Property(e => e.password).IsRequired().HasMaxLength(100);
-            builder.Property(e => e.email).IsRequired();
-            builder.Property(e => e.gender).IsRequired();
-            builder.Property(e => e.role_id).IsRequired();
-            builder.HasOne(e => e.role).WithMany(e => e.user).HasForeignKey(e => e.role_id);
         }
     }
 }

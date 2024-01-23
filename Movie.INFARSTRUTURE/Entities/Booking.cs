@@ -14,9 +14,9 @@ namespace Movie.INFARSTRUTURE.Entities
         public int show_id { get; set; }
         public int seat_id { get; set; }
         public int fare_id { get; set; }
-        public Guid user_id { get; set; }
+        public string user_id { get; set; }
         public Fare fare { get; set; }
         public Seat seat { get; set; }
-        public User user { get; set; }
+        public ApplicationUser user { get; set; }
     }
 }

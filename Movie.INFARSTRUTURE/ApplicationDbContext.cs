@@ -33,11 +33,7 @@ namespace Movie.INFARSTRUTURE
         public DbSet<Booking> Booking { get; set; }
 
         public DbSet<Fare> Fare { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
-
-
-
+        public DbSet<ApplicationUser> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new GenreConfiguration());
@@ -47,7 +43,6 @@ namespace Movie.INFARSTRUTURE
             modelBuilder.ApplyConfiguration(new CityConfiguration());
             modelBuilder.ApplyConfiguration(new FareConfiguraiton());
             modelBuilder.ApplyConfiguration(new Movie_typeConfiguration());
-            modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new SeatConfiguration());
             modelBuilder.ApplyConfiguration(new Seat_typeConfiguration());
             modelBuilder.ApplyConfiguration(new ShowConfiguration());

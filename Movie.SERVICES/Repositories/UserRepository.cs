@@ -19,65 +19,16 @@ using System.Threading.Tasks;
 
 namespace Movie.SERVICES.Repositories
 {
-    public class UserRepository : GenericRipository<INFARSTRUTURE.Entities.User>, IUserRepository
+    public class UserRepository : GenericRipository<INFARSTRUTURE.Entities.ApplicationUser>, IUserRepository
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        public UserRepository(UserManager<ApplicationUser> userManager,SignInManager<ApplicationUser> signInManager,IConfiguration configuration, ApplicationDbContext context, IUnitOfWork unitOfWork) : base(context, unitOfWork)
+        public UserRepository(UserManager<ApplicationUser> userManager, IConfiguration configuration, ApplicationDbContext context, IUnitOfWork unitOfWork) : base(context, unitOfWork)
         {
             this._userManager = userManager;
-            this._signInManager = signInManager;
             this._configuration = configuration;
         }
-        public async Task<bool> CheckEmailSignUp(string email)
-        {
-            return await _context.Users.AnyAsync(u => u.email==email);
-        }
-
-        public async Task<bool> CheckUserNameSignUp(string username)
-        {
-            return await _context.Users.AnyAsync(u => u.user_name == username);
-        }
-
-        public  Task CreateUser(User user)
-        {
-            return CreateAsync(user);
-        }
-
-        public Task Delete(User user)
-        {
-            return DeleteAsync(user);
-        }
-
-        public Task<User> GetByIdUser(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateUser(User user)
-        {
-            return UpdateAsync(user);
-        }
-
-        public Task<IEnumerable<User>> GetUsers()
-        {
-            return GetAll();
-        }
-
-        public async Task<User> SignIn(LoginViewModel login)
-        {
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.user_name == login.UserName);
-            if (user == null || !BCrypt.Net.BCrypt.Verify(login.Password, user.password)){
-                throw new Exception("Username or password is incorrect");
-            }
-            return user;
-        }
-        public Task<User> GetUserToContext(Guid id)
-        {
-            return GetByIdUser(id);
-        }
-
+      
         public async Task<string> SignInAsync(LoginViewModel login)
         {
             var user = await _userManager.FindByNameAsync(login.UserName);
@@ -103,7 +54,7 @@ namespace Movie.SERVICES.Repositories
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                 );
-               return new JwtSecurityTokenHandler().WriteToken(token);                               
+                return new JwtSecurityTokenHandler().WriteToken(token);
             }
             return null;
         }
@@ -112,6 +63,6 @@ namespace Movie.SERVICES.Repositories
             var result = await _userManager.CreateAsync(user, user.PasswordHash);
             return result;
         }
-      
+
     }
 }

@@ -12,7 +12,7 @@ using Movie.INFARSTRUTURE;
 namespace Movie.INFARSTRUTURE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240122060353_addIdentity")]
+    [Migration("20240123035839_addIdentity")]
     partial class addIdentity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -166,7 +166,6 @@ namespace Movie.INFARSTRUTURE.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
@@ -214,7 +213,6 @@ namespace Movie.INFARSTRUTURE.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
