@@ -9,19 +9,17 @@ using Movie.INFARSTRUTURE.Entities;
 
 namespace Movie.INFARSTRUTURE.Configurations
 {
-    public class SeatConfiguration: IEntityTypeConfiguration<Seat>
+    public class SeatConfiguration : IEntityTypeConfiguration<Seat>
     {
         public void Configure(EntityTypeBuilder<Seat> builder)
         {
             builder.ToTable("Seats");
-            builder.HasKey(e => e.seat_id);
-            builder.Property(e => e.seat_id).IsRequired();
-            builder.Property(e => e.row_loc).IsRequired().HasMaxLength(20);
-            builder.Property(e => e.col_loc).IsRequired();
-            builder.Property(e => e.status).IsRequired();
-            builder.Property(e => e.theater_id).IsRequired();
-            builder.HasOne(e => e.theater).WithMany(e => e.seat).HasForeignKey(e => e.seat_id);
-            builder.HasOne(e => e.seat_type).WithMany(e => e.seat).HasForeignKey(e => e.seat_type_id);
+            builder.HasKey(e => e.SeatID);
+            builder.Property(e => e.SeatID).IsRequired();
+            builder.Property(e => e.SeatName).IsRequired().HasMaxLength(250);
+            builder.Property(e => e.Status).IsRequired();
+            builder.HasOne(e => e.Theater).WithMany(e => e.Seat).HasForeignKey(e => e.SeatID);
+            builder.HasOne(e => e.SeatType).WithMany(e => e.Seat).HasForeignKey(e => e.SeatTypeID);
         }
     }
 }

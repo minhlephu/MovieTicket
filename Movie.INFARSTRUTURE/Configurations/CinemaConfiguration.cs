@@ -14,10 +14,10 @@ namespace Movie.INFARSTRUTURE.Configurations
         public void Configure(EntityTypeBuilder<Cinema> builder)
         {
             builder.ToTable("Cinemas");
-            builder.HasKey(e => e.cinema_id);
-            builder.Property(e => e.cinema_id).IsRequired();
-            builder.Property(e => e.cinema_name).IsRequired();
-            builder.HasOne(e => e.city).WithMany(e => e.cinema).HasForeignKey(e => e.city_id);
+            builder.HasKey(e => e.CinemaID);
+            builder.Property(e => e.CinemaID).IsRequired();
+            builder.Property(e => e.CinemaName).IsRequired();
+            builder.HasOne(e => e.City).WithMany(e => e.Cinema).HasForeignKey(e => e.CityID);
         }
     }
 }

@@ -14,10 +14,10 @@ namespace Movie.INFARSTRUTURE.Configurations
         public void Configure(EntityTypeBuilder<Fare> builder)
         {
             builder.ToTable("Fare");
-            builder.HasKey(e => e.fare_id);
-            builder.Property(e => e.fare_id).IsRequired();
-            builder.Property(e => e.fare_name).IsRequired().HasMaxLength(100);
-            builder.Property(e => e.unit_price).IsRequired();         
+            builder.HasKey(e => e.FareID);
+            builder.Property(e => e.FareID).IsRequired();
+            builder.Property(e => e.FareName).IsRequired().HasMaxLength(100);
+            builder.Property(e => e.UnitPrice).IsRequired();         
         }
     }
 }

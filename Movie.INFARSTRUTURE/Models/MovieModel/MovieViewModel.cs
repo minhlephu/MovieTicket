@@ -8,16 +8,24 @@ namespace Movie.INFARSTRUTURE.Models.MovieModel
 {
     public class MovieViewModel
     {
-        public int mv_id { get; set; }
-        public string? mv_name { get; set; }
-        public string? trailer { get; set; }
-        public string? photo { get; set; }
-        public string? summary { get; set; }
-        public DateTime release_date { get; set; }
-        public int duration { get; set; }
-        public bool comming_soon { get; set; }
-        public bool show_now { get; set; }
-        public bool hot { get; set; }
-        public int? genre_id { get; set; }
+        public int MovieID { get; set; }
+        public string? MovieName { get; set; }
+        public string? Trailer { get; set; }
+        public string? Summary { get; set; }
+        public DateTime ReleaseDate { get; set; }
+        public int Duration { get; set; }
+        public bool CommingSoon { get; set; }
+        public bool ShowNow { get; set; }
+        public bool Hot { get; set; }
+        public string Actors { get; set; }
+        public string Directors { get; set; }
+        public string Poster { get; set; }
+        public string Image1 { get; set; }
+        public string Image2 { get; set; }
+        public string Image3 { get; set; }
+        public string Image4 { get; set; }
+        public string Country { get; set; }
+        public string Language { get; set; }
+        public int? GenreID { get; set; }
     }
 }

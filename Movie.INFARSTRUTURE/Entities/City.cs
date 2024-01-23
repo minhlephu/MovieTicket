@@ -8,8 +8,8 @@ namespace Movie.INFARSTRUTURE.Entities
 {
     public class City
     {
-        public int city_id { get; set; }
-        public int city_name { get; set; }
-        public List<Cinema> cinema { get; set; }
+        public int CityID { get; set; }
+        public int CityName { get; set; }
+        public virtual ICollection<Cinema> Cinema { get; set; }
     }
 }

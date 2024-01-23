@@ -10,19 +10,19 @@ using System.Threading.Tasks;
 namespace Movie.INFARSTRUTURE.Configurations
 {
     public class ShowConfiguration : IEntityTypeConfiguration<Show>
-    {      
+    {
         public void Configure(EntityTypeBuilder<Show> builder)
         {
             builder.ToTable("Shows");
-            builder.HasKey(e => e.show_id);
-            builder.Property(e => e.show_id).IsRequired();
-            builder.Property(e => e.start_time).IsRequired();
-            builder.Property(e => e.end_time).IsRequired();
-            builder.Property(e => e.show_date).IsRequired();
-            builder.Property(e => e.mv_id).IsRequired();
-            builder.HasOne(e => e.movie).WithMany(e => e.show).HasForeignKey(e => e.mv_id);
-            builder.HasOne(e => e.movie_type).WithMany(e => e.show).HasForeignKey(e => e.mv_type_id);
-            builder.HasOne(e => e.theater).WithMany(e => e.show).HasForeignKey(e => e.theater_id);
+            builder.HasKey(e => e.ShowID);
+            builder.Property(e => e.ShowID).IsRequired();
+            builder.Property(e => e.StartTime).IsRequired();
+            builder.Property(e => e.EndTime).IsRequired();
+            builder.Property(e => e.ShowDate).IsRequired();
+            builder.Property(e => e.MovieID).IsRequired();
+            builder.HasOne(e => e.Movie).WithMany(e => e.Show).HasForeignKey(e => e.MovieID);
+            builder.HasOne(e => e.MovieType).WithMany(e => e.Show).HasForeignKey(e => e.MovieTypeID);
+            builder.HasOne(e => e.Theater).WithMany(e => e.Show).HasForeignKey(e => e.TheaterID);
 
         }
     }

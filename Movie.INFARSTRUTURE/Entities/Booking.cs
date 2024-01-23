@@ -8,15 +8,21 @@ namespace Movie.INFARSTRUTURE.Entities
 {
     public class Booking
     {
-        public int bk_id { get; set; }
-        public DateTime sale_date { get; set; }
-        public int price { get; set; }
-        public int show_id { get; set; }
-        public int seat_id { get; set; }
-        public int fare_id { get; set; }
-        public string user_id { get; set; }
-        public Fare fare { get; set; }
-        public Seat seat { get; set; }
-        public ApplicationUser user { get; set; }
+        public int BookingID { get; set; }
+        public DateTime BookingDate { get; set; }
+        public int NumberOfTicket { get; set; }
+        public DateTime PaymentDate { get; set; }
+        public string PaymentStatus { get; set; }
+        public string PaymentMethod { get; set; }
+        public string PaymenntInfo { get; set; }
+        public string TransactionID { get; set; }
+        public int ToTalPrice { get; set; }
+        public int ShowID { get; set; }
+        public int SeatID { get; set; }
+        public int FareID { get; set; }
+        public string UserID { get; set; }
+        public virtual Fare Fare { get; set; }
+        public virtual Seat Seat { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 }

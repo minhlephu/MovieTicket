@@ -8,13 +8,12 @@ namespace Movie.INFARSTRUTURE.Entities
 {
     public class Theater
     {
-        public int theater_id { get; set; }
-        public int row_qty { get; set; }
-        public int col_qty { get; set; }
-        public int cinema_id { get; set; }
-        public int seat_id { get; set; }
-        public Cinema cinema { get; set; }
-        public List<Show> show { get; set; }
-        public List<Seat> seat { get; set; }
+        public int TheaterID { get; set; }
+        public int CinemaID { get; set; }
+        public int QtySeat { get; set; }
+        public int SeatID { get; set; }
+        public virtual Cinema Cinema { get; set; }
+        public virtual ICollection<Show> Show { get; set; }
+        public virtual ICollection<Seat> Seat { get; set; }
     }
 }

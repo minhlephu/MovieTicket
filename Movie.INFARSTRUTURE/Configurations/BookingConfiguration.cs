@@ -13,13 +13,13 @@ namespace Movie.INFARSTRUTURE.Configurations
     {
         public void Configure(EntityTypeBuilder<Booking> builder)
         {
-            builder.ToTable("Booking");
-            builder.HasKey(e => e.bk_id);
-            builder.Property(e => e.bk_id).IsRequired();
-            builder.Property(e => e.price).IsRequired();
-            builder.HasOne(e => e.seat).WithMany(e => e.booking).HasForeignKey(e => e.seat_id);
-            builder.HasOne(e => e.fare).WithMany(e => e.booking).HasForeignKey(e => e.fare_id);
-            builder.HasOne(e => e.user).WithMany(e => e.booking).HasForeignKey(e => e.user_id);
+            builder.ToTable("Bookings");
+            builder.HasKey(e => e.BookingID);
+            builder.Property(e => e.BookingID).IsRequired();
+            builder.Property(e => e.ToTalPrice).IsRequired();
+            builder.HasOne(e => e.Seat).WithMany(e => e.Booking).HasForeignKey(e => e.SeatID);
+            builder.HasOne(e => e.Fare).WithMany(e => e.Booking).HasForeignKey(e => e.FareID);
+            builder.HasOne(e => e.User).WithMany(e => e.Booking).HasForeignKey(e => e.UserID);
 
         }
     }

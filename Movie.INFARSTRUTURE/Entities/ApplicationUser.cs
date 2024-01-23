@@ -13,6 +13,6 @@ namespace Movie.INFARSTRUTURE.Entities
         public string? Address { get; set; }
         [DataType(DataType.Date)]
         public DateTime? Birthday { set; get; }
-        public List<Booking> booking { get; set; }
+        public virtual ICollection<Booking> Booking { get; set; }
     }
 }

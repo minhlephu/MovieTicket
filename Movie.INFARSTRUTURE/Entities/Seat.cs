@@ -8,14 +8,13 @@ namespace Movie.INFARSTRUTURE.Entities
 {
     public class Seat
     {
-        public int seat_id { get; set; }
-        public string row_loc { get; set; }
-        public int col_loc { get; set; }
-        public int status { get; set; }
-        public int theater_id { get; set; }
-        public int seat_type_id { get; set; }
-        public Seat_type seat_type { get; set; }
-        public Theater theater { get; set; }
-        public List<Booking> booking { get; set; }
+        public int SeatID { get; set; }
+        public string SeatName { get; set; }
+        public string Status { get; set; }
+        public int TheaterID { get; set; }
+        public int SeatTypeID { get; set; }
+        public SeatType SeatType { get; set; }
+        public virtual Theater Theater { get; set; }
+        public virtual ICollection<Booking> Booking { get; set; }
     }
 }

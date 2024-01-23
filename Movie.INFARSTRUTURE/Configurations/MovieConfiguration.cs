@@ -14,15 +14,15 @@ namespace Movie.INFARSTRUTURE.Configurations
         public void Configure(EntityTypeBuilder<Entities.Movie> builder)
         {
             builder.ToTable("Movies");
-            builder.HasKey(e => e.mv_id);
-            builder.Property(e => e.mv_name)
+            builder.HasKey(e => e.MovieID);
+            builder.Property(e => e.MovieName)
                 .IsRequired()
                 .HasMaxLength(250);
-            builder.Property(e => e.release_date)
+            builder.Property(e => e.ReleaseDate)
                 .IsRequired();
-            builder.Property(e => e.duration)
+            builder.Property(e => e.Duration)
                 .IsRequired();
-            builder.HasOne(e => e.genre).WithMany(e => e.movies).HasForeignKey(e => e.genre_id);
+            builder.HasOne(e => e.Genre).WithMany(e => e.Movie).HasForeignKey(e => e.GenreID);
         }
     }
 }

@@ -14,9 +14,9 @@ namespace Movie.INFARSTRUTURE.Configurations
         public void Configure(EntityTypeBuilder<City> builder)
         {
             builder.ToTable("Cities");
-            builder.HasKey(e => e.city_id);
-            builder.Property(e => e.city_id).IsRequired();
-            builder.Property(e => e.city_name).IsRequired();        
+            builder.HasKey(e => e.CityID);
+            builder.Property(e => e.CityID).IsRequired();
+            builder.Property(e => e.CityName).IsRequired();        
         }
     }
 }

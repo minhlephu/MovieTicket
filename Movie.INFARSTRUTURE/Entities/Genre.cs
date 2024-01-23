@@ -11,8 +11,8 @@ namespace Movie.INFARSTRUTURE.Entities
    
     public class Genre
     {
-        public int genre_id { get; set; }
-        public string genre_name { get; set; }
-        public List<Movie> movies { get; set; }
+        public int GenreID { get; set; }
+        public string GenreName { get; set; }
+        public virtual ICollection<Movie> Movie { get; set; }
     }
 }

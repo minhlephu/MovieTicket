@@ -9,17 +9,14 @@ using Movie.INFARSTRUTURE.Entities;
 
 namespace Movie.INFARSTRUTURE.Configurations
 {
-    public class TheaterConfiguration: IEntityTypeConfiguration<Theater>
+    public class TheaterConfiguration : IEntityTypeConfiguration<Theater>
     {
         public void Configure(EntityTypeBuilder<Theater> builder)
         {
             builder.ToTable("Theaters");
-            builder.HasKey(e => e.theater_id);
-            builder.Property(e => e.theater_id).IsRequired();
-            builder.Property(e => e.row_qty).IsRequired();
-            builder.Property(e => e.col_qty).IsRequired();
-            builder.Property(e => e.cinema_id).IsRequired();
-            builder.HasOne(e => e.cinema).WithMany(e => e.theater).HasForeignKey(e => e.theater_id);
+            builder.HasKey(e => e.TheaterID);
+            builder.Property(e => e.TheaterID).IsRequired();
+            builder.HasOne(e => e.Cinema).WithMany(e => e.Theater).HasForeignKey(e => e.TheaterID);
 
         }
     }

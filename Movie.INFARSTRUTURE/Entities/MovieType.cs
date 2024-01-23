@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Movie.INFARSTRUTURE.Entities
 {
-    public class Movie_type
+    public class MovieType
     {
-        public int mv_type_id { get; set; }
-        public string mv_type_name { get; set; }
-        public int surcharge { get; set; }
-        public List<Show> show { get; set; }
+        public int MovieTypeID { get; set; }
+        public string MovieTypeName { get; set; }
+        public int Surcharge { get; set; }
+        public virtual ICollection<Show> Show { get; set; }
     }
 }

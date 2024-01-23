@@ -12,8 +12,8 @@ using Movie.INFARSTRUTURE;
 namespace Movie.INFARSTRUTURE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240123035839_addIdentity")]
-    partial class addIdentity
+    [Migration("20240123155601_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,7 +48,7 @@ namespace Movie.INFARSTRUTURE.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -73,7 +73,7 @@ namespace Movie.INFARSTRUTURE.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", (string)null);
+                    b.ToTable("RoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -98,7 +98,7 @@ namespace Movie.INFARSTRUTURE.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", (string)null);
+                    b.ToTable("UserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -120,7 +120,7 @@ namespace Movie.INFARSTRUTURE.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.ToTable("UserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -135,7 +135,7 @@ namespace Movie.INFARSTRUTURE.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.ToTable("UserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -154,7 +154,7 @@ namespace Movie.INFARSTRUTURE.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", (string)null);
+                    b.ToTable("UserTokens", (string)null);
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.ApplicationUser", b =>
@@ -226,369 +226,353 @@ namespace Movie.INFARSTRUTURE.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Booking", b =>
                 {
-                    b.Property<int>("bk_id")
+                    b.Property<int>("BookingID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("bk_id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingID"), 1L, 1);
 
-                    b.Property<int>("fare_id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("price")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("sale_date")
+                    b.Property<DateTime>("BookingDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("seat_id")
+                    b.Property<int>("FareID")
                         .HasColumnType("int");
 
-                    b.Property<int>("show_id")
+                    b.Property<int>("NumberOfTicket")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("user_id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("PaymenntInfo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("bk_id");
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
 
-                    b.HasIndex("fare_id");
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("seat_id");
+                    b.Property<string>("PaymentStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("user_id");
+                    b.Property<int>("SeatID")
+                        .HasColumnType("int");
 
-                    b.ToTable("Booking", (string)null);
+                    b.Property<int>("ShowID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ToTalPrice")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TransactionID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("BookingID");
+
+                    b.HasIndex("FareID");
+
+                    b.HasIndex("SeatID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Bookings", (string)null);
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Cinema", b =>
                 {
-                    b.Property<int>("cinema_id")
+                    b.Property<int>("CinemaID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("cinema_id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CinemaID"), 1L, 1);
 
-                    b.Property<string>("cinema_address")
+                    b.Property<string>("CinemaAddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("cinema_email")
+                    b.Property<string>("CinemaName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("cinema_name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("cinema_tel")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("city_id")
+                    b.Property<int>("CityID")
                         .HasColumnType("int");
 
-                    b.HasKey("cinema_id");
+                    b.HasKey("CinemaID");
 
-                    b.HasIndex("city_id");
+                    b.HasIndex("CityID");
 
                     b.ToTable("Cinemas", (string)null);
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.City", b =>
                 {
-                    b.Property<int>("city_id")
+                    b.Property<int>("CityID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("city_id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CityID"), 1L, 1);
 
-                    b.Property<int>("city_name")
+                    b.Property<int>("CityName")
                         .HasColumnType("int");
 
-                    b.HasKey("city_id");
+                    b.HasKey("CityID");
 
                     b.ToTable("Cities", (string)null);
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Fare", b =>
                 {
-                    b.Property<int>("fare_id")
+                    b.Property<int>("FareID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("fare_id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FareID"), 1L, 1);
 
-                    b.Property<string>("fare_name")
+                    b.Property<string>("FareName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("unit_price")
+                    b.Property<int>("UnitPrice")
                         .HasColumnType("int");
 
-                    b.HasKey("fare_id");
+                    b.HasKey("FareID");
 
                     b.ToTable("Fare", (string)null);
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Genre", b =>
                 {
-                    b.Property<int>("genre_id")
+                    b.Property<int>("GenreID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("genre_id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GenreID"), 1L, 1);
 
-                    b.Property<string>("genre_name")
+                    b.Property<string>("GenreName")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.HasKey("genre_id");
+                    b.HasKey("GenreID");
 
-                    b.ToTable("genre", (string)null);
+                    b.ToTable("Genre", (string)null);
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Movie", b =>
                 {
-                    b.Property<int>("mv_id")
+                    b.Property<int>("MovieID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("mv_id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MovieID"), 1L, 1);
 
-                    b.Property<bool>("comming_soon")
+                    b.Property<string>("Actors")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("CommingSoon")
                         .HasColumnType("bit");
 
-                    b.Property<int>("duration")
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Directors")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Duration")
                         .HasColumnType("int");
 
-                    b.Property<int?>("genre_id")
+                    b.Property<int?>("GenreID")
+                        .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<bool>("hot")
+                    b.Property<bool>("Hot")
                         .HasColumnType("bit");
 
-                    b.Property<string>("mv_name")
+                    b.Property<string>("Image1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image2")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image3")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image4")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Language")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MovieName")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<string>("photo")
+                    b.Property<string>("Poster")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("release_date")
+                    b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("show_now")
+                    b.Property<bool>("ShowNow")
                         .HasColumnType("bit");
 
-                    b.Property<string>("summary")
+                    b.Property<string>("Summary")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("trailer")
+                    b.Property<string>("Trailer")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("mv_id");
+                    b.HasKey("MovieID");
 
-                    b.HasIndex("genre_id");
+                    b.HasIndex("GenreID");
 
                     b.ToTable("Movies", (string)null);
                 });
 
-            modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Movie_type", b =>
+            modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.MovieType", b =>
                 {
-                    b.Property<int>("mv_type_id")
+                    b.Property<int>("MovieTypeID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("mv_type_id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MovieTypeID"), 1L, 1);
 
-                    b.Property<string>("mv_type_name")
+                    b.Property<string>("MovieTypeName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("surcharge")
+                    b.Property<int>("Surcharge")
                         .HasColumnType("int");
 
-                    b.HasKey("mv_type_id");
+                    b.HasKey("MovieTypeID");
 
-                    b.ToTable("Movie_type", (string)null);
-                });
-
-            modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Role", b =>
-                {
-                    b.Property<int>("role_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("role_id"), 1L, 1);
-
-                    b.Property<string>("role_name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("role_id");
-
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("MovieType", (string)null);
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Seat", b =>
                 {
-                    b.Property<int>("seat_id")
+                    b.Property<int>("SeatID")
                         .HasColumnType("int");
 
-                    b.Property<int>("col_loc")
-                        .HasColumnType("int");
-
-                    b.Property<string>("row_loc")
+                    b.Property<string>("SeatName")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
-                    b.Property<int>("seat_type_id")
+                    b.Property<int>("SeatTypeID")
                         .HasColumnType("int");
 
-                    b.Property<int>("status")
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TheaterID")
                         .HasColumnType("int");
 
-                    b.Property<int>("theater_id")
-                        .HasColumnType("int");
+                    b.HasKey("SeatID");
 
-                    b.HasKey("seat_id");
-
-                    b.HasIndex("seat_type_id");
+                    b.HasIndex("SeatTypeID");
 
                     b.ToTable("Seats", (string)null);
                 });
 
-            modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Seat_type", b =>
+            modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.SeatType", b =>
                 {
-                    b.Property<int>("seat_type_id")
+                    b.Property<int>("SeatTypeID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("seat_type_id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SeatTypeID"), 1L, 1);
 
-                    b.Property<string>("seat_name")
+                    b.Property<string>("SeatName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("surcharge")
+                    b.Property<int>("Surcharge")
                         .HasColumnType("int");
 
-                    b.HasKey("seat_type_id");
+                    b.HasKey("SeatTypeID");
 
-                    b.ToTable("Seat_type", (string)null);
+                    b.ToTable("SeatType", (string)null);
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Show", b =>
                 {
-                    b.Property<int>("show_id")
+                    b.Property<int>("ShowID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("show_id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShowID"), 1L, 1);
 
-                    b.Property<DateTime>("end_time")
+                    b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("mv_id")
+                    b.Property<int>("MovieID")
                         .HasColumnType("int");
 
-                    b.Property<int>("mv_type_id")
+                    b.Property<int>("MovieTypeID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("show_date")
+                    b.Property<DateTime>("ShowDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("start_time")
+                    b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("theater_id")
+                    b.Property<int>("TheaterID")
                         .HasColumnType("int");
 
-                    b.HasKey("show_id");
+                    b.HasKey("ShowID");
 
-                    b.HasIndex("mv_id");
+                    b.HasIndex("MovieID");
 
-                    b.HasIndex("mv_type_id");
+                    b.HasIndex("MovieTypeID");
 
-                    b.HasIndex("theater_id");
+                    b.HasIndex("TheaterID");
 
                     b.ToTable("Shows", (string)null);
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Theater", b =>
                 {
-                    b.Property<int>("theater_id")
+                    b.Property<int>("TheaterID")
                         .HasColumnType("int");
 
-                    b.Property<int>("cinema_id")
+                    b.Property<int>("CinemaID")
                         .HasColumnType("int");
 
-                    b.Property<int>("col_qty")
+                    b.Property<int>("QtySeat")
                         .HasColumnType("int");
 
-                    b.Property<int>("row_qty")
+                    b.Property<int>("SeatID")
                         .HasColumnType("int");
 
-                    b.Property<int>("seat_id")
-                        .HasColumnType("int");
-
-                    b.HasKey("theater_id");
+                    b.HasKey("TheaterID");
 
                     b.ToTable("Theaters", (string)null);
-                });
-
-            modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.User", b =>
-                {
-                    b.Property<Guid>("user_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("gender")
-                        .HasColumnType("int");
-
-                    b.Property<string>("password")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("regis_date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("role_id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("user_name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("user_id");
-
-                    b.HasIndex("role_id");
-
-                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -644,174 +628,160 @@ namespace Movie.INFARSTRUTURE.Migrations
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Booking", b =>
                 {
-                    b.HasOne("Movie.INFARSTRUTURE.Entities.Fare", "fare")
-                        .WithMany("booking")
-                        .HasForeignKey("fare_id")
+                    b.HasOne("Movie.INFARSTRUTURE.Entities.Fare", "Fare")
+                        .WithMany("Booking")
+                        .HasForeignKey("FareID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Movie.INFARSTRUTURE.Entities.Seat", "seat")
-                        .WithMany("booking")
-                        .HasForeignKey("seat_id")
+                    b.HasOne("Movie.INFARSTRUTURE.Entities.Seat", "Seat")
+                        .WithMany("Booking")
+                        .HasForeignKey("SeatID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Movie.INFARSTRUTURE.Entities.User", "user")
-                        .WithMany("booking")
-                        .HasForeignKey("user_id")
+                    b.HasOne("Movie.INFARSTRUTURE.Entities.ApplicationUser", "User")
+                        .WithMany("Booking")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("fare");
+                    b.Navigation("Fare");
 
-                    b.Navigation("seat");
+                    b.Navigation("Seat");
 
-                    b.Navigation("user");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Cinema", b =>
                 {
-                    b.HasOne("Movie.INFARSTRUTURE.Entities.City", "city")
-                        .WithMany("cinema")
-                        .HasForeignKey("city_id")
+                    b.HasOne("Movie.INFARSTRUTURE.Entities.City", "City")
+                        .WithMany("Cinema")
+                        .HasForeignKey("CityID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("city");
+                    b.Navigation("City");
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Movie", b =>
                 {
-                    b.HasOne("Movie.INFARSTRUTURE.Entities.Genre", "genre")
-                        .WithMany("movies")
-                        .HasForeignKey("genre_id");
+                    b.HasOne("Movie.INFARSTRUTURE.Entities.Genre", "Genre")
+                        .WithMany("Movie")
+                        .HasForeignKey("GenreID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("genre");
+                    b.Navigation("Genre");
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Seat", b =>
                 {
-                    b.HasOne("Movie.INFARSTRUTURE.Entities.Theater", "theater")
-                        .WithMany("seat")
-                        .HasForeignKey("seat_id")
+                    b.HasOne("Movie.INFARSTRUTURE.Entities.Theater", "Theater")
+                        .WithMany("Seat")
+                        .HasForeignKey("SeatID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Movie.INFARSTRUTURE.Entities.Seat_type", "seat_type")
-                        .WithMany("seat")
-                        .HasForeignKey("seat_type_id")
+                    b.HasOne("Movie.INFARSTRUTURE.Entities.SeatType", "SeatType")
+                        .WithMany("Seat")
+                        .HasForeignKey("SeatTypeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("seat_type");
+                    b.Navigation("SeatType");
 
-                    b.Navigation("theater");
+                    b.Navigation("Theater");
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Show", b =>
                 {
-                    b.HasOne("Movie.INFARSTRUTURE.Entities.Movie", "movie")
-                        .WithMany("show")
-                        .HasForeignKey("mv_id")
+                    b.HasOne("Movie.INFARSTRUTURE.Entities.Movie", "Movie")
+                        .WithMany("Show")
+                        .HasForeignKey("MovieID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Movie.INFARSTRUTURE.Entities.Movie_type", "movie_type")
-                        .WithMany("show")
-                        .HasForeignKey("mv_type_id")
+                    b.HasOne("Movie.INFARSTRUTURE.Entities.MovieType", "MovieType")
+                        .WithMany("Show")
+                        .HasForeignKey("MovieTypeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Movie.INFARSTRUTURE.Entities.Theater", "theater")
-                        .WithMany("show")
-                        .HasForeignKey("theater_id")
+                    b.HasOne("Movie.INFARSTRUTURE.Entities.Theater", "Theater")
+                        .WithMany("Show")
+                        .HasForeignKey("TheaterID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("movie");
+                    b.Navigation("Movie");
 
-                    b.Navigation("movie_type");
+                    b.Navigation("MovieType");
 
-                    b.Navigation("theater");
+                    b.Navigation("Theater");
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Theater", b =>
                 {
-                    b.HasOne("Movie.INFARSTRUTURE.Entities.Cinema", "cinema")
-                        .WithMany("theater")
-                        .HasForeignKey("theater_id")
+                    b.HasOne("Movie.INFARSTRUTURE.Entities.Cinema", "Cinema")
+                        .WithMany("Theater")
+                        .HasForeignKey("TheaterID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("cinema");
+                    b.Navigation("Cinema");
                 });
 
-            modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.User", b =>
+            modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.ApplicationUser", b =>
                 {
-                    b.HasOne("Movie.INFARSTRUTURE.Entities.Role", "role")
-                        .WithMany("user")
-                        .HasForeignKey("role_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("role");
+                    b.Navigation("Booking");
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Cinema", b =>
                 {
-                    b.Navigation("theater");
+                    b.Navigation("Theater");
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.City", b =>
                 {
-                    b.Navigation("cinema");
+                    b.Navigation("Cinema");
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Fare", b =>
                 {
-                    b.Navigation("booking");
+                    b.Navigation("Booking");
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Genre", b =>
                 {
-                    b.Navigation("movies");
+                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Movie", b =>
                 {
-                    b.Navigation("show");
+                    b.Navigation("Show");
                 });
 
-            modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Movie_type", b =>
+            modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.MovieType", b =>
                 {
-                    b.Navigation("show");
-                });
-
-            modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Role", b =>
-                {
-                    b.Navigation("user");
+                    b.Navigation("Show");
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Seat", b =>
                 {
-                    b.Navigation("booking");
+                    b.Navigation("Booking");
                 });
 
-            modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Seat_type", b =>
+            modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.SeatType", b =>
                 {
-                    b.Navigation("seat");
+                    b.Navigation("Seat");
                 });
 
             modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.Theater", b =>
                 {
-                    b.Navigation("seat");
+                    b.Navigation("Seat");
 
-                    b.Navigation("show");
-                });
-
-            modelBuilder.Entity("Movie.INFARSTRUTURE.Entities.User", b =>
-                {
-                    b.Navigation("booking");
+                    b.Navigation("Show");
                 });
 #pragma warning restore 612, 618
         }

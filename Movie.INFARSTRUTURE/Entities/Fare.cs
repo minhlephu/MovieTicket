@@ -8,9 +8,9 @@ namespace Movie.INFARSTRUTURE.Entities
 {
     public class Fare
     {
-        public int fare_id { get; set; }
-        public string fare_name { get; set; }
-        public int unit_price { get; set; }
-        public List<Booking> booking { get; set; }
+        public int FareID { get; set; }
+        public string FareName { get; set; }
+        public int UnitPrice { get; set; }
+        public virtual ICollection<Booking> Booking { get; set; }
     }
 }

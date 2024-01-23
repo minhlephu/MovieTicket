@@ -13,9 +13,9 @@ namespace Movie.INFARSTRUTURE.Configurations
     {
         public void Configure(EntityTypeBuilder<Genre> builder)
         {
-            builder.ToTable("genre");
-            builder.HasKey(x => x.genre_id);
-            builder.Property(e=>e.genre_name).IsRequired().HasMaxLength(250); 
+            builder.ToTable("Genre");
+            builder.HasKey(x => x.GenreID);
+            builder.Property(e=>e.GenreName).IsRequired().HasMaxLength(250); 
         }
     }
 }
