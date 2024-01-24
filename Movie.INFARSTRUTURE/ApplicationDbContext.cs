@@ -18,7 +18,7 @@ namespace Movie.INFARSTRUTURE
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Show> Shows { get; set; }
 
-        public DbSet<MovieType> Movie_type { get; set; }
+        public DbSet<MovieType> MovieType { get; set; }
 
         public DbSet<Theater> Theaters { get; set; }
 
@@ -28,11 +28,13 @@ namespace Movie.INFARSTRUTURE
 
         public DbSet<Seat> Seats { get; set; }
 
-        public DbSet<SeatType> Seat_type { get; set; }
+        public DbSet<SeatType> SeatType { get; set; }
 
         public DbSet<Booking> Booking { get; set; }
 
         public DbSet<Fare> Fare { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
+
         public DbSet<ApplicationUser> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -49,6 +51,7 @@ namespace Movie.INFARSTRUTURE
             modelBuilder.ApplyConfiguration(new ShowConfiguration());
             modelBuilder.ApplyConfiguration(new TheaterConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new FeedbackConfiguration());
             modelBuilder.Entity<IdentityRole>(entity =>
             {
                 entity.ToTable(name: "Roles");

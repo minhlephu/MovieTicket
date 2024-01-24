@@ -7,7 +7,6 @@ using Movie.INFARSTRUTURE.Entities;
 using Movie.SERVICES.Repositories;
 using MovieApi.Configurations;
 using MovieApi.Extensions;
-using MovieApi.Interfaces;
 using MovieApi.Middlewares;
 using System.Text;
 
@@ -30,7 +29,6 @@ namespace MovieApi
             builder.Services.AddControllers();
             builder.Services.AddDIServices(builder.Configuration);
             builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
-            builder.Services.AddScoped<IJwtUtils, JwtUtils>();
             // For Identity
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                    .AddEntityFrameworkStores<ApplicationDbContext>()

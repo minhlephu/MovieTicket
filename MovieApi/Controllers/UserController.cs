@@ -6,7 +6,7 @@ using Movie.INFARSTRUTURE.Models.UserModel;
 using Movie.SERVICES.Interfaces.IRepositories;
 using MovieApi.Extensions;
 using MovieApi.Helpers;
-using MovieApi.Interfaces;
+
 
 namespace MovieApi.Controllers
 {
@@ -18,13 +18,11 @@ namespace MovieApi.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private IUserRepository _userRepository;
-        private IJwtUtils _jwtUtils;
         private IMapper _mapper;
-        public UserController(IJwtUtils jwtUtils, IUserRepository userRepository, IMapper mapper, UserManager<ApplicationUser> userManager, IConfiguration configuration, RoleManager<IdentityRole> roleManager)
+        public UserController(IUserRepository userRepository, IMapper mapper, UserManager<ApplicationUser> userManager, IConfiguration configuration, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _userRepository = userRepository;
-            _jwtUtils = jwtUtils;
             _mapper = mapper;
             _configuration = configuration;
             _roleManager = roleManager;

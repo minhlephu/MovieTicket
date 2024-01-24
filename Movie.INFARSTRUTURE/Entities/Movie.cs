@@ -12,7 +12,7 @@ namespace Movie.INFARSTRUTURE.Entities
     public class Movie
     {
         public int MovieID { get; set; }   
-        public string? MovieName { get; set; }
+        public string MovieName { get; set; }
         public string? Trailer { get; set; }
         public string? Summary { get; set; }
         public DateTime ReleaseDate { get; set; }
@@ -29,8 +29,10 @@ namespace Movie.INFARSTRUTURE.Entities
         public string Image4 { get; set; }
         public string Country { get; set; }
         public string Language { get; set; }
-        public int? GenreID { get; set; }
+        public int GenreID { get; set; }
         public virtual Genre Genre { get; set; }
         public virtual ICollection<Show> Show { get; set; }
+        public virtual ICollection<Feedback> Feedback { get; set; }
+
     }
 }

@@ -17,6 +17,7 @@ namespace MovieApi.Extensions
             });
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddAutoMapper(typeof(UserMapper).Assembly);
             return services;
         }

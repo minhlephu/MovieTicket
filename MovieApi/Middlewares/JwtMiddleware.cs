@@ -1,6 +1,5 @@
 ﻿
 using Movie.SERVICES.Interfaces.IRepositories;
-using MovieApi.Interfaces;
 
 namespace MovieApi.Middlewares
 {

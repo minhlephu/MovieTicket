@@ -10,7 +10,6 @@ namespace MovieApi.Extensions.Mappers
         public UserMapper()
         {          
             CreateMap<ApplicationUser, LoginViewModel>().ReverseMap();
-            CreateMap<ApplicationUser, LoginResultVm>().ReverseMap();
             CreateMap<ApplicationUser, RegisterViewModel>().ReverseMap();
         }
     }

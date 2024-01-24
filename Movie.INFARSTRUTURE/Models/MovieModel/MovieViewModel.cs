@@ -8,8 +8,7 @@ namespace Movie.INFARSTRUTURE.Models.MovieModel
 {
     public class MovieViewModel
     {
-        public int MovieID { get; set; }
-        public string? MovieName { get; set; }
+        public string MovieName { get; set; }
         public string? Trailer { get; set; }
         public string? Summary { get; set; }
         public DateTime ReleaseDate { get; set; }
@@ -26,6 +25,6 @@ namespace Movie.INFARSTRUTURE.Models.MovieModel
         public string Image4 { get; set; }
         public string Country { get; set; }
         public string Language { get; set; }
-        public int? GenreID { get; set; }
+        public int GenreID { get; set; }
     }
 }
