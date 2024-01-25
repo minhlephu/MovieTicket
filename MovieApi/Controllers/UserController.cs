@@ -31,11 +31,20 @@ namespace MovieApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginViewModel request)
         {
-            var result = await _userRepository.SignInAsync(request);
-            if (string.IsNullOrEmpty(result))
+            var resultData = await _userRepository.SignInAsync(request);
+            if (string.IsNullOrEmpty(resultData))
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Username or password incorect" });
             }
+
+            var result = new Response<string>()
+            {
+                Data = resultData,
+                Status = "0",
+                Code = StatusCodes.Status200OK,
+                Message = "OK"
+
+            };
             return Ok(result);          
         }
         [Route("SignUp")]
