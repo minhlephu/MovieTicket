@@ -40,9 +40,9 @@ namespace MovieApi.Controllers
             var result = new Response<string>()
             {
                 Data = resultData,
-                Status = "0",
+                Status = "Succcess",
                 Code = StatusCodes.Status200OK,
-                Message = "OK"
+                Message = "Login success"
 
             };
             return Ok(result);          
