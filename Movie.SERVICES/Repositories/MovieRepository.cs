@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Movie.INFARSTRUTURE;
 using Movie.INFARSTRUTURE.Models.MovieModel;
+using Movie.INFARSTRUTURE.Utilities;
 using Movie.SERVICES.Interfaces;
 using Movie.SERVICES.Interfaces.IRepositories;
 
@@ -19,7 +21,7 @@ namespace Movie.SERVICES.Repositories
             _mapper = mapper;
         }
 
-        public ListMovie GetListMovie(int page, int pageSize, string filter = "")
+        public async Task<PageList<MovieResultVm>> GetListMovie(int page, int pageSize, string filter = "")
         {
            var query = _context.Movies.AsQueryable();
             if (!string.IsNullOrEmpty(filter))
@@ -28,14 +30,10 @@ namespace Movie.SERVICES.Repositories
             }
             var totalCount = query.Count();
             var totalPages = (int)Math.Ceiling((double)totalCount/pageSize);
-            var result = new ListMovie
-            {
-                ToTalCount = totalCount,
-                TotalPages = totalPages,
-                CurrentPage = page,
-                PageSize = pageSize,
-                Movies = query.ToList(),
-            };
+            query = query.Skip((page - 1) * pageSize).Take(pageSize);
+            var movies = await query.ToListAsync();
+            var resultItems = _mapper.Map<IEnumerable<MovieResultVm>>(movies);
+            var result = PageList<MovieResultVm>.Create(resultItems, page, pageSize, totalCount, totalPages);           
             return result;
         }
 

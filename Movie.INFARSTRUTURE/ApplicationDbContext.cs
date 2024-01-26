@@ -34,6 +34,7 @@ namespace Movie.INFARSTRUTURE
 
         public DbSet<Fare> Fare { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<TimeFrame> TimeFrames { get; set; }
 
         public DbSet<ApplicationUser> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -52,6 +53,7 @@ namespace Movie.INFARSTRUTURE
             modelBuilder.ApplyConfiguration(new TheaterConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new FeedbackConfiguration());
+            modelBuilder.ApplyConfiguration(new TImeFrameConfiguration());
             modelBuilder.Entity<IdentityRole>(entity =>
             {
                 entity.ToTable(name: "Roles");

@@ -23,6 +23,17 @@ namespace MovieApi.Controllers
             _mapper = mapper;
             _cinemaRepository = cinamaRepository;
         }
+        [Route("Cinemas")]
+        [HttpGet]
+        public async Task<IActionResult> GetListCinema([FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] string? filter = "")
+        {
+            var movieList = await _cinemaRepository.GetListCinema(page, pageSize, filter);
+            if (movieList == null)
+            {
+                return StatusCode(StatusCodes.Status204NoContent, "No movie in database");
+            }
+            return StatusCode(StatusCodes.Status200OK, movieList);
+        }
         [Route("Cinema/{id}")]
         [HttpGet]
         public async Task<IActionResult> GetInfoCinema(int id)
@@ -49,7 +60,7 @@ namespace MovieApi.Controllers
             var cinema = await _cinemaRepository.GetByIdAsync(id);
             if (cinema == null)
             {
-                return BadRequest(new Response
+                return NotFound(new Response
                 {
                     Status = "Error",
                     Code = StatusCodes.Status204NoContent,
@@ -85,7 +96,7 @@ namespace MovieApi.Controllers
             var cinema = await _cinemaRepository.GetByIdAsync(id);
             if (cinema == null)
             {
-                return BadRequest(new Response
+                return NotFound(new Response
                 {
                     Status = "Error",
                     Code = StatusCodes.Status204NoContent,

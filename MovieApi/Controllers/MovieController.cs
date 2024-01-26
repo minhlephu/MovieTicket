@@ -25,9 +25,9 @@ namespace MovieApi.Controllers
         }
         [Route("Movies")]
         [HttpGet]
-        public IActionResult GetMovieList([FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] string? filter = "")
+        public async Task<IActionResult> GetMovieList([FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] string? filter = "")
         {
-            var movieList = _movieRepository.GetListMovie(page, pageSize, filter);
+            var movieList = await _movieRepository.GetListMovie(page, pageSize, filter);
             if (movieList == null)
             {
                 return StatusCode(StatusCodes.Status204NoContent, "No movie in database");
@@ -60,7 +60,7 @@ namespace MovieApi.Controllers
             var movie = await _movieRepository.GetByIdAsync(id);
             if (movie == null)
             {
-                return BadRequest(new Response
+                return NotFound(new Response
                 {
                     Status = "Error",
                     Code = StatusCodes.Status204NoContent,

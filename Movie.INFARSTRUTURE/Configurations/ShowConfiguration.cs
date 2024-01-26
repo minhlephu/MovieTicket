@@ -16,8 +16,6 @@ namespace Movie.INFARSTRUTURE.Configurations
             builder.ToTable("Shows");
             builder.HasKey(e => e.ShowID);
             builder.Property(e => e.ShowID).IsRequired();
-            builder.Property(e => e.StartTime).IsRequired();
-            builder.Property(e => e.EndTime).IsRequired();
             builder.Property(e => e.ShowDate).IsRequired();
             builder.Property(e => e.MovieID).IsRequired();
             builder.HasOne(e => e.Movie).WithMany(e => e.Show).HasForeignKey(e => e.MovieID);

@@ -8,9 +8,7 @@ namespace Movie.INFARSTRUTURE.Entities
 {
     public class Show
     {
-        public int ShowID { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public int ShowID { get; set; }    
         public DateTime ShowDate { get; set; }
         public int MovieID { get; set; }
         public int MovieTypeID { get; set; }
@@ -18,6 +16,7 @@ namespace Movie.INFARSTRUTURE.Entities
         public virtual Movie Movie { get; set; }
         public virtual MovieType MovieType { get; set; }
         public virtual Theater Theater { get; set; }
+        public virtual ICollection<TimeFrame> TimeFrame { get; set; }
 
     }
 }

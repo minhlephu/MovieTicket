@@ -10,8 +10,7 @@ namespace MovieApi.Extensions.Mappers
         {
             CreateMap<Movie.INFARSTRUTURE.Entities.Movie, MovieViewModel>().ReverseMap();
             CreateMap<Movie.INFARSTRUTURE.Entities.Movie, MovieResultVm>().ReverseMap();
-            CreateMap<MovieViewModel, Movie.INFARSTRUTURE.Entities.Movie>().ReverseMap();
-
+            CreateMap<MovieViewModel, Movie.INFARSTRUTURE.Entities.Movie>().ReverseMap();          
         }
     }
 }
