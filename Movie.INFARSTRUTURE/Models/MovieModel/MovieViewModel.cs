@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Movie.INFARSTRUTURE.Models.MovieModel
 {
@@ -18,13 +19,10 @@ namespace Movie.INFARSTRUTURE.Models.MovieModel
         public bool Hot { get; set; }
         public string Actors { get; set; }
         public string Directors { get; set; }
-        public string Poster { get; set; }
-        public string Image1 { get; set; }
-        public string Image2 { get; set; }
-        public string Image3 { get; set; }
-        public string Image4 { get; set; }
+        public string Poster { get; set; }     
         public string Country { get; set; }
         public string Language { get; set; }
         public int GenreID { get; set; }
+        public IFormFile Image { get; set; }
     }
 }
