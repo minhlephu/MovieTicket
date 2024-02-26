@@ -33,7 +33,12 @@ namespace MovieApi
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                    .AddEntityFrameworkStores<ApplicationDbContext>()
                    .AddDefaultTokenProviders();
-            
+            builder.Services.AddCors(o => o.AddPolicy("NUXT", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
             // Adding Authentication
             builder.Services.AddAuthentication(options =>
             {
@@ -68,6 +73,7 @@ namespace MovieApi
             }
             //app.UseMiddleware<JwtMiddleware>();
             app.UseHttpsRedirection();
+            app.UseCors("NUXT");
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
