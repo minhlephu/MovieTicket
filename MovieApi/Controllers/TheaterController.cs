@@ -5,6 +5,7 @@ using Movie.INFARSTRUTURE.Models.TheaterModel;
 using Movie.INFARSTRUTURE.Models.TimeFrame;
 using Movie.SERVICES.Interfaces.IRepositories;
 using MovieApi.Extensions;
+using MovieApi.Helpers;
 using System.ComponentModel.DataAnnotations;
 
 namespace MovieApi.Controllers
@@ -34,7 +35,7 @@ namespace MovieApi.Controllers
             {
                 Data = _mapper.Map<TheaterResultVm>(theater),
                 Code = StatusCodes.Status200OK,
-                Status = "Success",
+                Status = Status.Success,
                 Message = "Get theater success"
             };
             return Ok(result);
@@ -48,14 +49,14 @@ namespace MovieApi.Controllers
             {
                 return NotFound(new Response
                 {
-                    Status = "Error",
+                    Status = Status.Error,
                     Code = StatusCodes.Status204NoContent,
                     Message = "No theater found to delete"
                 });
             }
             await _theaterRepository.DeleteAsync(theater);
             await _theaterRepository.SaveChangesAsync();
-            return Ok(new Response { Status = "Success", Message = "Delete theater success", Code = StatusCodes.Status200OK });
+            return Ok(new Response { Status = Status.Success, Message = "Delete theater success", Code = StatusCodes.Status200OK });
 
         }
         [Route("CreateTheater")]
@@ -70,7 +71,7 @@ namespace MovieApi.Controllers
             {
                 Data = resultData,
                 Code = StatusCodes.Status200OK,
-                Status = "Success",
+                Status = Status.Success,
                 Message = "Create theater success"
             };
             return Ok(result);
@@ -84,7 +85,7 @@ namespace MovieApi.Controllers
             {
                 return NotFound(new Response
                 {
-                    Status = "Error",
+                    Status = Status.Error,
                     Code = StatusCodes.Status204NoContent,
                     Message = "No theater found to delete"
                 });
@@ -94,7 +95,7 @@ namespace MovieApi.Controllers
             var result = new Response
             {
                 Code = StatusCodes.Status200OK,
-                Status = "Success",
+                Status = Status.Success,
                 Message = "Update theater success"
             };
             return Ok(result);

@@ -51,7 +51,7 @@ namespace MovieApi.Controllers
             {
                 Data = _mapper.Map<MovieResultVm>(movie),
                 Code = StatusCodes.Status200OK,
-                Status = "0",
+                Status = Status.Success,
                 Message = "Ok"
             };
             return Ok(result);
@@ -65,14 +65,14 @@ namespace MovieApi.Controllers
             {
                 return NotFound(new Response
                 {
-                    Status = "Error",
+                    Status = Status.Error,
                     Code = StatusCodes.Status204NoContent,
                     Message = "No movie found to delete"
                 });
             }
             await _movieRepository.DeleteAsync(movie);
             await _movieRepository.SaveChangesAsync();
-            return Ok(new Response { Status = "Success", Message = "Delete success", Code = StatusCodes.Status200OK });
+            return Ok(new Response { Status = Status.Success, Message = "Delete success", Code = StatusCodes.Status200OK });
 
         }
         [Route("CreateMovie")]
@@ -125,7 +125,7 @@ namespace MovieApi.Controllers
             {
                 return BadRequest(new Response
                 {
-                    Status = "Error",
+                    Status = Status.Error,
                     Code = StatusCodes.Status204NoContent,
                     Message = "No movie found to update"
                 });
@@ -135,7 +135,7 @@ namespace MovieApi.Controllers
             var result = new Response
             {
                 Code = StatusCodes.Status200OK,
-                Status = "Success",
+                Status = Status.Success,
                 Message = "Update movie success"
             };
             return Ok(result);

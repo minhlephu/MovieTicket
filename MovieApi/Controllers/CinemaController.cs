@@ -9,6 +9,7 @@ using Movie.INFARSTRUTURE.Models.MovieModel;
 using Movie.SERVICES.Interfaces.IRepositories;
 using Movie.SERVICES.Repositories;
 using MovieApi.Extensions;
+using MovieApi.Helpers;
 
 namespace MovieApi.Controllers
 {
@@ -48,7 +49,7 @@ namespace MovieApi.Controllers
             {
                 Data = _mapper.Map<CinemaResultVm>(cinema),
                 Code = StatusCodes.Status200OK,
-                Status = "Success",
+                Status = Status.Success,
                 Message = "Get cinema success"
             };
             return Ok(result);
@@ -62,14 +63,14 @@ namespace MovieApi.Controllers
             {
                 return NotFound(new Response
                 {
-                    Status = "Error",
+                    Status = Status.Error,
                     Code = StatusCodes.Status204NoContent,
                     Message = "No movie found to delete"
                 });
             }
             await _cinemaRepository.DeleteAsync(cinema);
             await _cinemaRepository.SaveChangesAsync();
-            return Ok(new Response { Status = "Success", Message = "Delete cinema success", Code = StatusCodes.Status200OK });
+            return Ok(new Response { Status = Status.Success, Message = "Delete cinema success", Code = StatusCodes.Status200OK });
 
         }
         [Route("CreateCinema")]
@@ -84,7 +85,7 @@ namespace MovieApi.Controllers
             {
                 Data = resultData,
                 Code = StatusCodes.Status200OK,
-                Status = "Success",
+                Status = Status.Success,
                 Message = "Get cinema success"
             };
             return Ok(result);
@@ -98,7 +99,7 @@ namespace MovieApi.Controllers
             {
                 return NotFound(new Response
                 {
-                    Status = "Error",
+                    Status = Status.Error,
                     Code = StatusCodes.Status204NoContent,
                     Message = "No movie found to delete"
                 });
@@ -108,7 +109,7 @@ namespace MovieApi.Controllers
             var result = new Response
             {
                 Code = StatusCodes.Status200OK,
-                Status = "Success",
+                Status = Status.Success,
                 Message = "Update cinema success"
             };
             return Ok(result);

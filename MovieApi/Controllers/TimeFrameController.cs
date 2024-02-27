@@ -5,6 +5,7 @@ using Movie.INFARSTRUTURE.Models.CinemaModel;
 using Movie.INFARSTRUTURE.Models.TimeFrame;
 using Movie.SERVICES.Interfaces.IRepositories;
 using MovieApi.Extensions;
+using MovieApi.Helpers;
 using System.ComponentModel.DataAnnotations;
 
 namespace MovieApi.Controllers
@@ -34,7 +35,7 @@ namespace MovieApi.Controllers
             {
                 Data = _mapper.Map<TimeFrameResultVm>(timeFrame),
                 Code = StatusCodes.Status200OK,
-                Status = "Success",
+                Status = Status.Success,
                 Message = "Get timeframe success"
             };
             return Ok(result);
@@ -48,14 +49,14 @@ namespace MovieApi.Controllers
             {
                 return NotFound(new Response
                 {
-                    Status = "Error",
+                    Status = Status.Error,
                     Code = StatusCodes.Status204NoContent,
                     Message = "No fimeframe found to delete"
                 });
             }
             await _timeFrameRepository.DeleteAsync(timeFrame);
             await _timeFrameRepository.SaveChangesAsync();
-            return Ok(new Response { Status = "Success", Message = "Delete timeframe success", Code = StatusCodes.Status200OK });
+            return Ok(new Response { Status = Status.Success, Message = "Delete timeframe success", Code = StatusCodes.Status200OK });
 
         }
         [Route("CreateTimeFrame")]
@@ -70,7 +71,7 @@ namespace MovieApi.Controllers
             {
                 Data = resultData,
                 Code = StatusCodes.Status200OK,
-                Status = "Success",
+                Status = Status.Success,
                 Message = "Create timeframe success"
             };
             return Ok(result);
@@ -84,7 +85,7 @@ namespace MovieApi.Controllers
             {
                 return NotFound(new Response
                 {
-                    Status = "Error",
+                    Status = Status.Error,
                     Code = StatusCodes.Status204NoContent,
                     Message = "No movie found to delete"
                 });
@@ -94,7 +95,7 @@ namespace MovieApi.Controllers
             var result = new Response
             {
                 Code = StatusCodes.Status200OK,
-                Status = "Success",
+                Status = Status.Success,
                 Message = "Update timeframe success"
             };
             return Ok(result);

@@ -34,13 +34,13 @@ namespace MovieApi.Controllers
             var resultData = await _userRepository.SignInAsync(request);
             if (string.IsNullOrEmpty(resultData))
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Username or password incorect" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = 101, Message = "Username or password incorect" });
             }
 
             var result = new Response<string>()
             {
                 Data = resultData,
-                Status = "Succcess",
+                Status = 100,
                 Code = StatusCodes.Status200OK,
                 Message = "Login success"
 
@@ -51,9 +51,12 @@ namespace MovieApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] RegisterViewModel request)
         {
-            var userExists = await _userManager.FindByNameAsync(request.Username);
-            if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+            var userNameExists = await _userManager.FindByNameAsync(request.Username);
+            if (userNameExists != null)
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = 102, Message = "UserName already exists!" });
+            var userEmailExists = await _userManager.FindByEmailAsync(request.Email);
+            if (userEmailExists != null)
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = 103, Message = "Email already exists!" });
             var user  = new ApplicationUser
             {
                 Email = request.Email,
@@ -62,7 +65,7 @@ namespace MovieApi.Controllers
             };
             var result = await _userManager.CreateAsync(user, request.Password);
             if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status =Status.Error, Message = "User creation failed! Please check user details and try again." });
             if (!await _roleManager.RoleExistsAsync(AppRole.Admin))
             {
                 await _roleManager.CreateAsync(new IdentityRole(AppRole.Admin));
@@ -74,7 +77,7 @@ namespace MovieApi.Controllers
 
             }
             await _userManager.AddToRoleAsync(user, AppRole.Customer);
-            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
+            return Ok(new Response { Status = Status.Success, Message = "User created successfully!" });
            
         }
     }
