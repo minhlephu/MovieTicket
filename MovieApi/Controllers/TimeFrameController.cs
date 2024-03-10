@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Movie.INFARSTRUTURE.Models.CinemaModel;
 using Movie.INFARSTRUTURE.Models.TimeFrame;
 using Movie.SERVICES.Interfaces.IRepositories;
+using Movie.SERVICES.Repositories;
 using MovieApi.Extensions;
 using MovieApi.Helpers;
 using System.ComponentModel.DataAnnotations;
@@ -20,6 +21,17 @@ namespace MovieApi.Controllers
         {
             _mapper = mapper;
             _timeFrameRepository = timeFrameRepository;
+        }
+        [Route("TimeFrames")]
+        [HttpGet]
+        public async Task<IActionResult> GetListTimeFrame([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        {
+            var timeFrameList = await _timeFrameRepository.GetListTimeFrame(page, pageSize);
+            if (timeFrameList == null)
+            {
+                return StatusCode(StatusCodes.Status204NoContent, "No timeframe in database");
+            }
+            return StatusCode(StatusCodes.Status200OK, timeFrameList);
         }
         [Route("{id}")]
         [HttpGet]
@@ -42,7 +54,7 @@ namespace MovieApi.Controllers
         }
         [Route("DeleteTimeFrame")]
         [HttpDelete]
-        public async Task<IActionResult> DeleteTimeFrame(int id)
+        public async Task<IActionResult> DeleteTimeFrame([FromQuery] int id)
         {
             var timeFrame = await _timeFrameRepository.GetByIdAsync(id);
             if (timeFrame == null)
@@ -76,7 +88,7 @@ namespace MovieApi.Controllers
             };
             return Ok(result);
         }
-        [Route("{id}")]
+        [Route("UpdateTimeFrame")]
         [HttpPut]
         public async Task<IActionResult> UpdateTimeFrame([Required] int id, TimeFrameViewModel timeFrameVm)
         {

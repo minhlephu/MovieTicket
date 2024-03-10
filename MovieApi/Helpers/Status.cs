@@ -2,7 +2,7 @@
 {
     public static class Status
     {
-        public const int Success = 100;
+        public const int Success = 200;
         public const int Error = 110;
 
         // 101: "Username or password incorect"

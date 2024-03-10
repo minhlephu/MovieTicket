@@ -53,10 +53,10 @@ namespace MovieApi.Controllers
         {
             var userNameExists = await _userManager.FindByNameAsync(request.Username);
             if (userNameExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = 102, Message = "UserName already exists!" });
+                return Ok(new Response { Status = 102, Message = "UserName already exists!" });
             var userEmailExists = await _userManager.FindByEmailAsync(request.Email);
             if (userEmailExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = 103, Message = "Email already exists!" });
+                return Ok(new Response { Status = 103, Message = "Email already exists!" });
             var user  = new ApplicationUser
             {
                 Email = request.Email,
