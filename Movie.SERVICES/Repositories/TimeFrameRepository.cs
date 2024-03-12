@@ -22,15 +22,15 @@ namespace Movie.SERVICES.Repositories
         {
             _mapper = mapper;
         }
-        public async Task<PageList<TimeFrameResultVm>> GetListTimeFrame(int page, int pageSize)
+        public async Task<PageList<TimeFrameResultVm>> GetListTimeFrame(int current, int pageSize)
         {
             var query = _context.TimeFrames.AsQueryable();
             var totalCount = query.Count();
             var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
-            query = query.Skip((page - 1) * pageSize).Take(pageSize);
+            query = query.Skip((current - 1) * pageSize).Take(pageSize);
             var timeFrames = await query.ToListAsync();
             var resultItems = _mapper.Map<IEnumerable<TimeFrameResultVm>>(timeFrames);
-            var result = PageList<TimeFrameResultVm>.Create(resultItems, page, pageSize, totalCount, totalPages);
+            var result = PageList<TimeFrameResultVm>.Create(resultItems, current, pageSize, totalCount, totalPages);
             return result;
         }
     }

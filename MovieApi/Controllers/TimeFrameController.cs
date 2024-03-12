@@ -24,9 +24,9 @@ namespace MovieApi.Controllers
         }
         [Route("TimeFrames")]
         [HttpGet]
-        public async Task<IActionResult> GetListTimeFrame([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        public async Task<IActionResult> GetListTimeFrame([FromQuery] int current = 1, [FromQuery] int pageSize = 10)
         {
-            var timeFrameList = await _timeFrameRepository.GetListTimeFrame(page, pageSize);
+            var timeFrameList = await _timeFrameRepository.GetListTimeFrame(current, pageSize);
             if (timeFrameList == null)
             {
                 return StatusCode(StatusCodes.Status204NoContent, "No timeframe in database");

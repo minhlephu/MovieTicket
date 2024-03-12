@@ -8,7 +8,7 @@ namespace Movie.INFARSTRUTURE.Models.TimeFrame
 {
     public class TimeFrameViewModel
     {
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
     }
 }
