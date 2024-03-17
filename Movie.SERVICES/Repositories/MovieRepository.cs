@@ -21,7 +21,7 @@ namespace Movie.SERVICES.Repositories
             _mapper = mapper;
         }
 
-        public async Task<PageList<MovieResultVm>> GetListMovie(int page, int pageSize, string filter = "")
+        public async Task<PageList<MovieResultVm>> GetListMovie(int current, int pageSize, string filter = "")
         {
            var query = _context.Movies.AsQueryable();
             if (!string.IsNullOrEmpty(filter))
@@ -30,10 +30,10 @@ namespace Movie.SERVICES.Repositories
             }
             var totalCount = query.Count();
             var totalPages = (int)Math.Ceiling((double)totalCount/pageSize);
-            query = query.Skip((page - 1) * pageSize).Take(pageSize);
+            query = query.Skip((current - 1) * pageSize).Take(pageSize);
             var movies = await query.ToListAsync();
             var resultItems = _mapper.Map<IEnumerable<MovieResultVm>>(movies);
-            var result = PageList<MovieResultVm>.Create(resultItems, page, pageSize, totalCount, totalPages);           
+            var result = PageList<MovieResultVm>.Create(resultItems, current, pageSize, totalCount, totalPages);           
             return result;
         }
 

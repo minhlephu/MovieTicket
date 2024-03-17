@@ -11,7 +11,7 @@ namespace Movie.SERVICES.Interfaces.IRepositories
 {
     public interface IMovieRepository : IGenericRepository<INFARSTRUTURE.Entities.Movie>
     {
-        public Task<PageList<MovieResultVm>> GetListMovie(int page, int pageSize, string filter = "");
+        public Task<PageList<MovieResultVm>> GetListMovie(int current, int pageSize, string filter = "");
     }
 }
 

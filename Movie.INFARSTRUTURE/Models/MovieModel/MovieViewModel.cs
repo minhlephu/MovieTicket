@@ -19,10 +19,9 @@ namespace Movie.INFARSTRUTURE.Models.MovieModel
         public bool Hot { get; set; }
         public string Actors { get; set; }
         public string Directors { get; set; }
-        public string Poster { get; set; }     
-        public string Country { get; set; }
+        public IFormFile Poster { get; set; }     
         public string Language { get; set; }
         public int GenreID { get; set; }
-        public IFormFile Image { get; set; }
+        public IFormFile Images { get; set; }
     }
 }

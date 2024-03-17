@@ -23,8 +23,7 @@ namespace Movie.INFARSTRUTURE.Entities
         public string Actors { get; set; }
         public string Directors { get; set; }
         public string Poster { get; set; }
-        public string Image { get; set; }
-        public string Country { get; set; }
+        public string Images { get; set; }
         public string Language { get; set; }
         public int GenreID { get; set; }
         public virtual Genre Genre { get; set; }

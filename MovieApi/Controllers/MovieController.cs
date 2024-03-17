@@ -28,9 +28,9 @@ namespace MovieApi.Controllers
         }
         [Route("Movies")]
         [HttpGet]
-        public async Task<IActionResult> GetMovieList([FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] string? filter = "")
+        public async Task<IActionResult> GetMovieList([FromQuery] int current = 1, [FromQuery] int pageSize = 10, [FromQuery] string? filter = "")
         {
-            var movieList = await _movieRepository.GetListMovie(page, pageSize, filter);
+            var movieList = await _movieRepository.GetListMovie(current, pageSize, filter);
             if (movieList == null)
             {
                 return StatusCode(StatusCodes.Status204NoContent, "No movie in database");
@@ -108,14 +108,13 @@ namespace MovieApi.Controllers
 
             }
             var poster = "/images/" + filePoster.FileName;
-            movie.Image = images;
+            movie.Images = images;
             movie.Poster = poster;
             await _movieRepository.CreateAsync(movie);
             await _movieRepository.SaveChangesAsync();
             var result = _mapper.Map<MovieResultVm>(movie);
             return StatusCode(StatusCodes.Status200OK, result);
         }
-        [Authorize(Roles = AppRole.Admin)]
         [Route("{id}")]
         [HttpPut]
         public async Task<IActionResult> UpdateMovie([Required] int id, MovieViewModel movieVm)

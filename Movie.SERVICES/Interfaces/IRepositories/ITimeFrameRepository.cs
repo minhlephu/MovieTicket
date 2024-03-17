@@ -12,6 +12,6 @@ namespace Movie.SERVICES.Interfaces.IRepositories
 {
     public interface ITimeFrameRepository:IGenericRepository<TimeFrame>
     {
-        public Task<PageList<TimeFrameResultVm>> GetListTimeFrame(int page, int pageSize);
+        public Task<PageList<TimeFrameResultVm>> GetListTimeFrame(int current, int pageSize);
     }
 }
