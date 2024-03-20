@@ -28,9 +28,9 @@ namespace MovieApi.Controllers
         }
         [Route("Movies")]
         [HttpGet]
-        public async Task<IActionResult> GetMovieList([FromQuery] int current = 1, [FromQuery] int pageSize = 10, [FromQuery] string? filter = "")
+        public async Task<IActionResult> GetMovieList([FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] string? filter = "")
         {
-            var movieList = await _movieRepository.GetListMovie(current, pageSize, filter);
+            var movieList = await _movieRepository.GetListMovie(page, pageSize, filter);
             if (movieList == null)
             {
                 return StatusCode(StatusCodes.Status204NoContent, "No movie in database");
@@ -56,7 +56,7 @@ namespace MovieApi.Controllers
             };
             return Ok(result);
         }
-        [Route("DeleteMovie")]
+        [Route("{id}")]
         [HttpDelete]
         public async Task<IActionResult> DeleteMovie(int id)
         {
@@ -71,6 +71,8 @@ namespace MovieApi.Controllers
                 });
             }
             await _movieRepository.DeleteAsync(movie);
+            await _movieRepository.RemoveImage(movie.Images);
+            await _movieRepository.RemoveImage(movie.Poster);
             await _movieRepository.SaveChangesAsync();
             return Ok(new Response { Status = Status.Success, Message = "Delete success", Code = StatusCodes.Status200OK });
 
