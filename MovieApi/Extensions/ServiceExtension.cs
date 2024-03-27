@@ -22,6 +22,7 @@ namespace MovieApi.Extensions
             services.AddScoped<IShowRepository, ShowRepository>();
             services.AddScoped<ITheaterRepository, TheaterRepository>();
             services.AddScoped<ITimeFrameRepository, TimeFrameRepository>();
+            services.AddScoped<ICityRepository, CityRepository>();
             services.AddAutoMapper(typeof(UserMapper).Assembly);
             return services;
         }
