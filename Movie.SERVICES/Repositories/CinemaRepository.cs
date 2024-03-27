@@ -24,14 +24,25 @@ namespace Movie.SERVICES.Repositories
         public async Task<PageList<CinemaResultVm>> GetListCinema(int page, int pageSize, string filter = "")
         {
             var query = _context.Cinemas.AsQueryable();
+            var listCinema = _context.Cinemas
+                .Join(_context.Cities, m => m.CinemaID, n => n.CityID, (m, n) => new { m, n })
+                .Select(cm => new CinemaResultVm
+                {
+                    CinemaID = cm.m.CinemaID,
+                    CinemaName = cm.m.CinemaName,
+                    CinemaAddress = cm.m.CinemaAddress,
+                    CityID = cm.n.CityID,
+                    CityName = cm.n.CityName
+                });
+
             if (!string.IsNullOrEmpty(filter))
             {
-                query = query.Where(mv => mv.CinemaName.Contains(filter));
+                listCinema = listCinema.Where(mv => mv.CinemaName.Contains(filter));
             }
-            var totalCount = query.Count();
+            var totalCount = listCinema.Count();
             var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
-            query = query.Skip((page - 1) * pageSize).Take(pageSize);
-            var cinemas = await query.ToListAsync();
+            listCinema = listCinema.Skip((page - 1) * pageSize).Take(pageSize);
+            var cinemas = await listCinema.ToListAsync();
             var resultItems = _mapper.Map<IEnumerable<CinemaResultVm>>(cinemas);
             var result = PageList<CinemaResultVm>.Create(resultItems, page, pageSize, totalCount, totalPages);
             return result;

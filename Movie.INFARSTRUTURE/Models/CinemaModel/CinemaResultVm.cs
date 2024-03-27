@@ -12,5 +12,6 @@ namespace Movie.INFARSTRUTURE.Models.CinemaModel
         public string CinemaName { get; set; }
         public string? CinemaAddress { get; set; }
         public int CityID { get; set; }
+        public string CityName { get; set; }
     }
 }
