@@ -48,7 +48,7 @@ namespace Movie.SERVICES.Repositories
                 try
                 {
                     var path = "C:\\Movie\\MovieApi\\wwwroot" + image;
-                    System.IO.File.Delete(path);                  
+                    System.IO.File.Delete(path);
                 }
                 catch (Exception ex)
                 {
@@ -57,6 +57,12 @@ namespace Movie.SERVICES.Repositories
             }
 
             return allDeleted;
+        }
+
+        public async Task<IEnumerable<Movie.INFARSTRUTURE.Entities.Movie>> GetListMovieShowNowOrCommingSoon(bool showNow, bool commingSoon)
+        {
+            var movies = await _context.Movies.Where(mv => mv.ShowNow == showNow && mv.CommingSoon == commingSoon).ToListAsync();
+            return movies;
         }
     }
 }

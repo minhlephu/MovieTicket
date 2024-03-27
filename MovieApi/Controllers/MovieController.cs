@@ -37,6 +37,20 @@ namespace MovieApi.Controllers
             }
             return StatusCode(StatusCodes.Status200OK, movieList);
         }
+        [Route("ShowNow")]
+        [HttpGet]
+        public async Task<IActionResult> GetMovieShowNowOrCommingSoon([FromQuery] bool showNow=false, [FromQuery] bool commingSoon=false)
+        {
+            var movieList = await _movieRepository.GetListMovieShowNowOrCommingSoon(showNow, commingSoon);
+            var result = new Response<IEnumerable<MovieResultVm>>
+            {
+                Data = _mapper.Map<IEnumerable<MovieResultVm>>(movieList),
+                Code = StatusCodes.Status200OK,
+                Status = Status.Success,
+                Message = "Get succses"
+            };
+            return Ok(result);
+        }
         [Route("MovieInfo/{id}")]
         [HttpGet]
         public async Task<IActionResult> GetInfoMovie(int id)
